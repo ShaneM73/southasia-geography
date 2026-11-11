@@ -1,0 +1,1087 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>South Asia in Relief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@500&family=Noto+Sans+Bengali:wght@500&family=Noto+Sans+Tamil:wght@500&family=Noto+Sans+Telugu:wght@500&family=Noto+Sans+Kannada:wght@500&family=Noto+Sans+Malayalam:wght@500&family=Noto+Sans+Sinhala:wght@500&family=Noto+Sans+Thaana:wght@500&family=Noto+Serif+Tibetan:wght@500&family=Noto+Naskh+Arabic:wght@500&family=Noto+Nastaliq+Urdu&display=swap">
+<style>
+html,body{margin:0}
+
+/* Layout: a museum relief model on the left, a lesson notebook on the right; stacks on phones. */
+:root{
+  --bg:#ECEEF4; --surface:#FBFBFD; --ink:#151A36; --muted:#565D7B; --line:#D4D8E6;
+  --indigo:#2D3B97; --indigo-soft:#E2E5F6; --turmeric:#A86C00; --turmeric-soft:#FAEDCF;
+  --stage-a:#D7DEEC; --stage-b:#F2F4F9; --slab:#C7BFAA; --chip:rgba(251,251,253,.92);
+  --good:#2F7D52; --bad:#B23A3A; --shadow:0 8px 28px rgba(21,26,54,.14);
+  --map-ink:#161A33; --map-halo:rgba(255,255,255,.86); --map-sea:#F2F6FF; --map-sea-halo:rgba(16,32,78,.55);
+  --r-hindu:#E39B2E; --r-muslim:#3C9A6B; --r-buddhist:#B5485B; --r-christian:#4A6FC4; --r-sikh:#7C5AB8; --r-other:#9AA0B4;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B0F23; --surface:#11163A; --ink:#E7E9F6; --muted:#A0A6C6; --line:#272E58;
+    --indigo:#9AA7FF; --indigo-soft:#1E2552; --turmeric:#F2B640; --turmeric-soft:#3A2E12;
+    --stage-a:#070A1A; --stage-b:#18204A; --slab:#3B3629; --chip:rgba(17,22,58,.9);
+    --good:#5CC48A; --bad:#F07C7C; --shadow:0 8px 28px rgba(0,0,0,.45); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B0F23; --surface:#11163A; --ink:#E7E9F6; --muted:#A0A6C6; --line:#272E58;
+  --indigo:#9AA7FF; --indigo-soft:#1E2552; --turmeric:#F2B640; --turmeric-soft:#3A2E12;
+  --stage-a:#070A1A; --stage-b:#18204A; --slab:#3B3629; --chip:rgba(17,22,58,.9);
+  --good:#5CC48A; --bad:#F07C7C; --shadow:0 8px 28px rgba(0,0,0,.45); color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--turmeric);outline-offset:2px;border-radius:6px}
+.app{display:flex;flex-direction:column;height:100%}
+
+/* header */
+.top{display:flex;align-items:center;gap:20px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--surface);border-bottom:1px solid var(--line);position:relative;z-index:5}
+.brand{display:flex;align-items:baseline;gap:10px;flex-shrink:0}
+.brand b{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.02em;font-variation-settings:"opsz" 40}
+.brand span{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.02em}
+.tabs{display:flex;gap:2px;overflow-x:auto;min-width:0;flex:1;scrollbar-width:none;-ms-overflow-style:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;background:none;padding:7px 11px;border-radius:8px;cursor:pointer;font-family:var(--f-display);font-weight:500;font-size:14px;color:var(--muted);white-space:nowrap;display:flex;gap:7px;align-items:baseline}
+.tab i{font-style:normal;font-family:var(--f-mono);font-size:11px;opacity:.75}
+.tab:hover{background:var(--indigo-soft);color:var(--ink)}
+.tab[aria-current="true"]{background:var(--indigo);color:var(--surface)}
+.tab[aria-current="true"] i{opacity:.9}
+
+/* stage */
+.stage{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 448px;min-height:0}
+.map{position:relative;min-width:0;min-height:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 10%,var(--stage-b),var(--stage-a))}
+.map canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.map canvas:active{cursor:grabbing}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;white-space:nowrap;will-change:transform;color:var(--map-ink);text-shadow:0 0 3px var(--map-halo),0 0 6px var(--map-halo)}
+.lbl.nations{font-family:var(--f-display);font-weight:800;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.lbl.nations.sm{font-size:10.5px;letter-spacing:.12em}
+.lbl.nations.nb{font-weight:500;opacity:.7}
+.lbl.seas{font-family:var(--f-body);font-style:italic;font-size:15px;letter-spacing:.06em;color:var(--map-sea);text-shadow:0 0 4px var(--map-sea-halo),0 0 8px var(--map-sea-halo)}
+.lbl.ranges{font-family:var(--f-display);font-weight:650;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#4A2F14;text-shadow:0 0 3px rgba(255,248,235,.95),0 0 7px rgba(255,248,235,.8)}
+.lbl.rivers{font-family:var(--f-body);font-style:italic;font-size:12.5px;color:#123F86;text-shadow:0 0 3px rgba(255,255,255,.95),0 0 6px rgba(255,255,255,.8)}
+.lbl.pop{font-family:var(--f-mono);font-size:12px;font-weight:500;background:var(--chip);color:var(--ink);text-shadow:none;padding:3px 7px;border-radius:5px;border:1px solid var(--line)}
+.pin{position:absolute;left:0;top:0;pointer-events:auto;border:0;padding:0;background:none;cursor:pointer;will-change:transform}
+.pin b{display:grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--indigo);color:#fff;font-family:var(--f-mono);font-size:11px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,.3);border:2px solid #fff;transition:transform .15s}
+.pin::after{content:"";display:block;width:2px;height:12px;margin:0 auto;background:#fff;box-shadow:0 0 2px rgba(0,0,0,.5)}
+.pin:hover b{transform:scale(1.12)}
+.pin.on b{background:var(--turmeric);color:#1c1300;transform:scale(1.22)}
+.pin .tip{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);white-space:nowrap;font-family:var(--f-display);font-size:12px;font-weight:650;background:var(--chip);color:var(--ink);padding:3px 8px;border-radius:5px;border:1px solid var(--line);opacity:0;pointer-events:none;transition:opacity .12s}
+.pin:hover .tip,.pin.on .tip,.pin:focus-visible .tip{opacity:1}
+
+/* map controls */
+.ov{position:absolute;z-index:3}
+.box{background:var(--chip);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.layers{top:14px;left:max(16px,env(safe-area-inset-left,0px));display:flex;padding:3px;gap:2px}
+.layers button{border:0;background:none;padding:6px 11px;border-radius:7px;font-family:var(--f-display);font-weight:500;font-size:13px;cursor:pointer;color:var(--muted)}
+.layers button:hover{color:var(--ink)}
+.layers button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.ctl{top:14px;right:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.ctl .row{display:flex;gap:2px;padding:3px}
+.ctl .row button{border:0;background:none;padding:5px 9px;border-radius:7px;font-family:var(--f-display);font-size:12.5px;cursor:pointer;color:var(--muted);display:flex;align-items:center;gap:6px}
+.ctl .row button::before{content:"";width:8px;height:8px;border-radius:2px;border:1.5px solid currentColor}
+.ctl .row button[aria-pressed="true"]{color:var(--ink)}
+.ctl .row button[aria-pressed="true"]::before{background:var(--turmeric);border-color:var(--turmeric)}
+.ctl .row button.plain::before{display:none}
+.exag{display:flex;align-items:center;gap:8px;padding:6px 10px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.exag input{width:110px;accent-color:var(--turmeric)}
+.exag output{min-width:30px;color:var(--ink);font-variant-numeric:tabular-nums}
+.legend{right:16px;bottom:14px;padding:10px 12px;width:250px;font-family:var(--f-display);font-size:12px}
+.legend h4{margin:0 0 6px;font-size:11px;font-weight:650;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.legend .bar{height:10px;border-radius:3px}
+.legend .ticks{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
+.legend .sw{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px}
+.legend .sw span{display:flex;align-items:center;gap:6px;min-width:0}
+.legend .sw i{width:11px;height:11px;border-radius:3px;flex-shrink:0;border:1px solid rgba(0,0,0,.15)}
+.readout{margin-top:8px;padding-top:7px;border-top:1px solid var(--line);font-family:var(--f-mono);font-size:11px;color:var(--muted);min-height:2.6em;font-variant-numeric:tabular-nums}
+.readout b{color:var(--ink);font-weight:500}
+.card{left:max(16px,env(safe-area-inset-left,0px));bottom:14px;width:min(380px,calc(100% - 300px));padding:14px 16px 12px;max-height:calc(100% - 90px);overflow:auto}
+.card .k{font-family:var(--f-mono);font-size:11px;color:var(--turmeric);letter-spacing:.03em;text-transform:uppercase}
+.card h3{margin:2px 0 4px;font-family:var(--f-display);font-weight:800;font-size:21px;line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.card .co{font-family:var(--f-mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card p{margin:8px 0 10px;font-size:15px;line-height:1.5}
+.card .nav{display:flex;align-items:center;gap:6px;border-top:1px solid var(--line);padding-top:9px}
+.card .nav button{border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:4px 10px;cursor:pointer;font-family:var(--f-display);font-size:13px}
+.card .nav button:hover{border-color:var(--indigo)}
+.card .nav .ct{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-right:auto}
+.card .x{position:absolute;top:8px;right:8px;border:0;background:none;width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:18px;line-height:1;color:var(--muted)}
+.card .x:hover{background:var(--indigo-soft);color:var(--ink)}
+.loader{position:absolute;inset:0;display:grid;place-items:center;z-index:4;background:radial-gradient(120% 90% at 50% 10%,var(--stage-b),var(--stage-a))}
+.loader div{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center}
+.loader .pbar{width:220px;height:3px;background:var(--line);border-radius:2px;margin:10px auto 0;overflow:hidden}
+.loader .pbar i{display:block;height:100%;width:0;background:var(--turmeric);transition:width .2s}
+.note-ex{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:58px;z-index:2;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);pointer-events:none}
+
+/* panel */
+.panel{overflow-y:auto;min-width:0;background:var(--surface);border-left:1px solid var(--line)}
+.lesson{padding-block:26px 48px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px;max-width:640px}
+.eyebrow{margin:0;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--turmeric)}
+.lesson h1{margin:-14px 0 0;font-family:var(--f-display);font-weight:800;font-size:40px;line-height:1.02;letter-spacing:-.03em;text-wrap:balance;font-variation-settings:"opsz" 96}
+.lead{margin:0;font-size:19px;line-height:1.45;color:var(--ink)}
+.lesson h2{margin:0 0 10px;font-family:var(--f-display);font-weight:650;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px;text-wrap:balance}
+.lesson h2 span{letter-spacing:.04em;text-transform:none;font-family:var(--f-mono);font-weight:400}
+.obj ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.obj li{padding-left:22px;position:relative;font-size:15.5px}
+.obj li::before{content:"";position:absolute;left:2px;top:.55em;width:10px;height:10px;border:2px solid var(--indigo);border-radius:50%}
+.prose p{margin:0 0 12px;font-size:16px}
+.prose p:last-child{margin-bottom:0}
+.prose .aside{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:12px}
+.now{background:var(--turmeric-soft);border-radius:10px;padding:12px 14px;font-size:15px}
+.now b{font-family:var(--f-display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--turmeric);display:block;margin-bottom:2px}
+.stops ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
+.stop{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:baseline;text-align:left;border:0;background:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+.stop:hover{background:var(--indigo-soft)}
+.stop.on{background:var(--indigo-soft);box-shadow:inset 3px 0 0 var(--turmeric)}
+.stop .n{font-family:var(--f-mono);font-size:11px;color:var(--indigo);font-variant-numeric:tabular-nums}
+.stop .t{font-family:var(--f-display);font-weight:650;font-size:15px;display:block;line-height:1.25}
+.stop .s{font-family:var(--f-mono);font-size:11px;color:var(--muted);display:block;margin-top:1px}
+.timeline .stop{grid-template-columns:92px minmax(0,1fr)}
+.timeline .stop .n{font-size:11px;color:var(--turmeric);text-align:right}
+.tourbtn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 12px;font-family:var(--f-display);font-size:13px;cursor:pointer;margin-top:8px}
+.tourbtn:hover{border-color:var(--indigo)}
+.terms dl{margin:0;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.terms dt{font-family:var(--f-display);font-weight:650;font-size:15px}
+.terms dd{margin:2px 0 0;font-size:15px;color:var(--muted)}
+.discuss{border:1px dashed var(--line);border-radius:12px;padding:14px 16px}
+.discuss p{margin:0;font-size:16px;font-style:italic}
+.pager{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:16px}
+.pager button{border:0;background:none;cursor:pointer;text-align:left;padding:6px 0;font-family:var(--f-display);min-width:0}
+.pager button span{display:block;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.pager button b{font-weight:650;font-size:16px;color:var(--indigo)}
+.pager button:last-child{text-align:right;margin-left:auto}
+
+/* widgets */
+.widget{display:flex;flex-direction:column;gap:8px;min-width:0}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-family:var(--f-display);font-weight:650;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--indigo-soft)}
+tbody tr:last-child td{border-bottom:0}
+tfoot td{font-weight:600;border-bottom:0;border-top:1px solid var(--line);background:var(--bg)}
+.src{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);line-height:1.5;margin:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:340px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px;background:var(--bg);align-self:flex-start;flex-wrap:wrap}
+.seg button{border:0;background:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-family:var(--f-display);font-size:13px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.rel{display:flex;flex-direction:column;gap:7px}
+.rel .r{display:grid;grid-template-columns:90px minmax(0,1fr);gap:10px;align-items:center;font-size:13.5px}
+.rel .r span{font-family:var(--f-display);font-weight:650}
+.rel .bars{display:flex;height:16px;border-radius:4px;overflow:hidden;background:var(--line)}
+.rel .bars i{display:block;height:100%}
+.rel .r small{grid-column:2;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);margin-top:-4px}
+.keyrow{display:flex;flex-wrap:wrap;gap:4px 12px;font-family:var(--f-display);font-size:12.5px}
+.keyrow span{display:flex;gap:5px;align-items:center}
+.keyrow i{width:10px;height:10px;border-radius:2px}
+.scripts{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px}
+.scripts div{border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px;min-width:0}
+.scripts .w{font-size:26px;line-height:1.5;display:block;min-height:42px}
+.scripts .tr{font-family:var(--f-mono);font-size:11px;color:var(--ink);display:block}
+.scripts .ln{font-family:var(--f-display);font-size:11.5px;color:var(--muted);display:block}
+.dens .r{display:grid;grid-template-columns:96px minmax(0,1fr) 62px;gap:10px;align-items:center;font-size:13.5px;padding:3px 0}
+.dens .r span{font-family:var(--f-display);font-weight:650}
+.dens .r i{display:block;height:12px;border-radius:3px;background:var(--indigo)}
+.dens .r em{font-style:normal;font-family:var(--f-mono);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.tagh{font-family:var(--f-display);font-weight:650;font-size:13px;margin:12px 0 2px;color:var(--turmeric)}
+.tagh:first-child{margin-top:0}
+
+/* quiz */
+.quiz{display:flex;flex-direction:column;gap:18px}
+.score{font-family:var(--f-display);font-size:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.score b{font-family:var(--f-mono);font-size:20px;color:var(--indigo);font-variant-numeric:tabular-nums}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.q h3{margin:0 0 10px;font-family:var(--f-display);font-weight:650;font-size:17px;line-height:1.3;text-wrap:balance}
+.q h3 i{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--muted);display:block;margin-bottom:2px}
+.q .opts{display:grid;gap:6px}
+.q .opts button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:15px}
+.q .opts button:hover:not(:disabled){border-color:var(--indigo)}
+.q .opts button:disabled{cursor:default}
+.q .opts button.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.q .opts button.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.q .fb{margin:10px 0 0;font-size:14.5px}
+.q .fb b{font-family:var(--f-display)}
+
+@media (max-width:900px){
+  html,body{height:auto}
+  .app{height:auto;min-height:100%}
+  .stage{display:block}
+  .map{height:62vh;min-height:380px;max-height:640px}
+  .panel{border-left:0;border-top:1px solid var(--line)}
+  .lesson{max-width:none}
+  .top{flex-wrap:wrap;gap:6px 14px}
+  .tabs{flex-basis:100%}
+  .brand span{display:none}
+  .legend{width:200px;padding:8px 10px}
+  .card{width:auto;right:16px;bottom:10px;max-height:58%}
+  .card ~ .legend{display:none}
+  .map.carded .legend{display:none}
+  .ctl .exag{display:none}
+  .readout{display:none}
+  .note-ex{display:none}
+}
+@media (max-width:520px){
+  .layers button{padding:5px 8px;font-size:12px}
+  .ctl{top:54px;right:auto;left:max(16px,env(safe-area-inset-left,0px));align-items:flex-start}
+  .ctl .row button{padding:4px 7px;font-size:12px}
+  .legend{width:auto;left:auto;max-width:190px;bottom:10px;padding:7px 9px}
+  .legend .sw{grid-template-columns:1fr}
+  .legend .ticks{font-size:9px}
+  .lesson h1{font-size:34px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><b>South Asia in Relief</b><span>An interactive geography module · 2°–37°N, 60°–98°E</span></div>
+    <nav class="tabs" id="tabs" aria-label="Lessons"></nav>
+  </header>
+  <main class="stage">
+    <section class="map" id="map" aria-label="3D relief map of South Asia">
+      <div class="labels" id="labels"></div>
+      <div class="ov box layers" id="layers" role="group" aria-label="Map layer">
+        <button data-l="relief" aria-pressed="true">Relief</button>
+        <button data-l="nations" aria-pressed="false">Nations</button>
+        <button data-l="rain" aria-pressed="false">Rainfall</button>
+        <button data-l="lang" aria-pressed="false">Languages</button>
+      </div>
+      <div class="note-ex" id="noteEx">Drag to rotate · scroll or pinch to zoom · right-drag to pan</div>
+      <div class="ov ctl">
+        <div class="box row" role="group" aria-label="Map overlays">
+          <button data-t="labels" aria-pressed="true">Labels</button>
+          <button data-t="rivers" aria-pressed="true">Rivers</button>
+          <button data-t="borders" aria-pressed="true">Borders</button>
+          <button class="plain" id="resetView" title="Reset the view">Reset</button>
+        </div>
+        <label class="box exag" for="exag">Vertical ×<input id="exag" type="range" min="4" max="60" step="1" value="28"><output id="exagOut">28</output></label>
+      </div>
+      <div class="ov box legend" id="legend"></div>
+      <div class="ov box card" id="card" hidden></div>
+      <div class="loader" id="loader"><div>Building the relief model…<div class="pbar"><i id="pbar"></i></div></div></div>
+    </section>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+'use strict';
+/*MODEL-START*/
+const KX=Math.cos(20*Math.PI/180);
+const LON0=60,LON1=98,LAT0=2,LAT1=37;
+const GW=720,GH=664;
+const DLON=(LON1-LON0)/GW, DLAT=(LAT1-LAT0)/GH;
+const clamp=(x,a,b)=>x<a?a:x>b?b:x;
+const lerp=(a,b,t)=>a+(b-a)*t;
+function sstep(e0,e1,x){const t=clamp((x-e0)/(e1-e0),0,1);return t*t*(3-2*t);}
+function pip(x,y,p){let c=false;for(let i=0,j=p.length-1;i<p.length;j=i++){const xi=p[i][0],yi=p[i][1],xj=p[j][0],yj=p[j][1];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))c=!c;}return c;}
+function hash(i,j){let h=Math.imul(i,374761393)+Math.imul(j,668265263)|0;h=Math.imul(h^(h>>>13),1274126177);h=h^(h>>>16);return (h>>>0)/4294967295;}
+function vnoise(x,y){const i=Math.floor(x),j=Math.floor(y),fx=x-i,fy=y-j,u=fx*fx*(3-2*fx),v=fy*fy*(3-2*fy);const a=hash(i,j),b=hash(i+1,j),c=hash(i,j+1),d=hash(i+1,j+1);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
+function fbm(x,y,o){let s=0,a=.5,f=1,n=0;for(let k=0;k<o;k++){s+=a*vnoise(x*f,y*f);n+=a;a*=.5;f*=2.03;}return s/n;}
+function dSeg(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=clamp(t,0,1);const x=ax+t*dx-px,y=ay+t*dy-py;return Math.sqrt(x*x+y*y);}
+function interp(pts,x){if(x<=pts[0][0])return pts[0][1];for(let i=1;i<pts.length;i++){if(x<=pts[i][0]){const a=pts[i-1],b=pts[i];return lerp(a[1],b[1],(x-a[0])/(b[0]-a[0]));}}return pts[pts.length-1][1];}
+
+/* ---- coastlines & countries (simplified) ---- */
+const MAIN=[[60,25.3],[61.6,25.15],[62.4,25.1],[63.5,25.25],[64.6,25.2],[65.6,25.35],[66.6,25.45],[66.9,24.9],[67.2,24.6],[67.4,23.95],[68.0,23.65],[68.4,23.5],[68.8,23.2],[69.3,22.85],[70.0,22.95],[70.6,22.95],[70.2,22.55],[69.6,22.45],[69.0,22.3],[69.6,21.6],[70.37,20.9],[70.98,20.71],[71.5,20.85],[72.1,21.4],[72.3,22.0],[72.55,22.3],[72.75,21.8],[72.7,21.1],[72.85,20.4],[72.85,19.2],[73.05,18.2],[73.3,17.2],[73.6,16.2],[73.85,15.3],[74.3,14.5],[74.65,13.6],[74.85,12.8],[75.3,11.9],[75.75,11.2],[76.05,10.4],[76.3,9.6],[76.55,8.9],[77.1,8.3],[77.55,8.08],[78.15,8.8],[78.6,9.15],[79.3,9.28],[79.05,9.55],[79.3,10.25],[79.85,10.3],[79.85,11.0],[79.85,11.9],[80.2,12.6],[80.3,13.4],[80.15,14.2],[80.1,15.0],[80.4,15.8],[81.1,15.8],[81.3,16.3],[82.2,16.6],[82.4,17.0],[83.3,17.6],[84.1,18.3],[84.9,19.2],[85.5,19.7],[86.4,20.0],[86.9,20.6],[87.0,21.4],[87.8,21.7],[88.2,21.6],[88.7,21.6],[89.2,21.7],[89.9,21.85],[90.4,22.0],[90.6,22.5],[91.0,22.6],[91.5,22.5],[91.85,22.2],[91.95,21.6],[92.05,21.15],[92.3,20.7],[92.75,20.2],[93.2,19.8],[93.7,19.1],[94.2,18.5],[94.4,17.6],[94.2,16.6],[94.3,16.0],[94.7,15.9],[95.3,15.75],[95.8,16.1],[96.3,16.6],[96.9,17.2],[97.3,16.8],[97.6,16.3],[97.7,15.4],[98,14.9],[98,37],[60,37]];
+const SRI=[[79.85,9.75],[80.25,9.83],[80.6,9.45],[80.95,8.95],[81.25,8.5],[81.45,8.0],[81.8,7.45],[81.88,6.9],[81.65,6.45],[81.2,6.15],[80.6,5.93],[80.2,6.05],[79.95,6.6],[79.85,7.2],[79.8,7.9],[79.85,8.4],[79.95,8.95],[79.9,9.4]];
+const MV_DOTS=[[73.0,6.8],[73.15,6.15],[73.0,5.6],[73.4,5.3],[72.95,4.75],[73.5,4.2],[73.4,3.7],[72.85,3.35],[73.6,3.0],[73.25,2.6],[73.0,2.2]];
+const LK_DOTS=[[72.62,10.57],[72.2,11.2],[73.0,10.05],[72.75,11.1],[73.65,10.85]];
+const ISLE_ELL=[[92.75,13.35,.13,.42],[92.82,12.45,.13,.4],[92.68,11.7,.13,.38],[92.55,10.6,.1,.18],[92.8,9.18,.06,.08],[93.82,7.0,.12,.25],[93.5,8.0,.06,.12]];
+const PK=[[61.6,25.15],[61.6,24.0],[68.15,23.0],[68.15,23.7],[68.8,24.3],[70.0,24.2],[70.6,25.7],[70.1,26.5],[69.5,27.0],[70.6,28.0],[71.9,27.9],[72.8,28.9],[73.4,29.9],[74.4,30.9],[74.55,31.6],[74.6,32.1],[74.8,32.4],[74.65,32.75],[74.3,32.95],[74.0,33.3],[74.05,33.8],[73.95,34.15],[74.35,34.5],[74.9,34.7],[75.7,34.55],[76.4,34.8],[77.05,35.1],[76.8,35.6],[75.9,36.5],[75.4,36.9],[74.6,37.05],[73.0,36.9],[71.8,36.6],[71.2,36.0],[71.6,35.2],[71.1,34.4],[70.0,34.0],[69.9,33.1],[69.3,31.9],[68.8,31.6],[67.7,31.4],[66.9,30.9],[66.3,29.9],[64.4,29.5],[62.5,29.4],[60.87,29.86],[61.8,28.6],[62.8,28.2],[62.8,27.2],[63.3,26.7],[61.8,26.2]];
+const AF=[[60.87,29.86],[61.75,30.9],[60.85,31.5],[60.6,32.5],[60.9,33.5],[60.5,34.2],[61.0,34.6],[61.2,35.65],[62.3,35.15],[63.1,35.9],[64.5,36.3],[65.6,37.0],[66.5,37.4],[70,37.6],[74.9,37.4],[74.6,37.05],[73.0,36.9],[71.8,36.6],[71.2,36.0],[71.6,35.2],[71.1,34.4],[70.0,34.0],[69.9,33.1],[69.3,31.9],[68.8,31.6],[67.7,31.4],[66.9,30.9],[66.3,29.9],[64.4,29.5],[62.5,29.4]];
+const NP=[[80.06,28.84],[80.55,29.6],[80.95,30.2],[81.5,30.4],[82.3,30.1],[83.3,29.5],[84.2,28.85],[85.2,28.6],[86.0,28.0],[87.2,27.95],[88.15,27.9],[88.15,27.0],[88.0,26.4],[87.3,26.4],[86.0,26.6],[85.2,26.75],[84.6,27.3],[83.3,27.35],[82.0,27.9],[80.9,28.6]];
+const BT=[[88.85,27.2],[89.1,27.75],[89.6,28.2],[90.4,28.1],[91.3,28.0],[91.65,27.8],[92.1,27.4],[92.0,26.85],[90.4,26.8],[89.7,26.7],[88.95,26.85]];
+const BD=[[89.05,20.9],[89.07,21.65],[89.05,22.2],[88.95,22.9],[88.6,23.6],[88.75,24.25],[88.1,24.5],[88.3,25.1],[88.95,25.3],[88.45,25.65],[88.15,26.0],[88.55,26.45],[89.0,26.2],[89.5,25.95],[89.85,25.3],[90.6,25.2],[91.5,25.15],[92.3,25.1],[92.45,24.85],[92.2,24.25],[91.9,24.15],[91.4,24.1],[91.15,23.5],[91.4,22.95],[91.75,23.0],[92.3,23.65],[92.35,23.2],[92.6,22.0],[92.62,21.4],[92.3,20.7],[91.5,20.3]];
+const IN=[[68.15,23.7],[68.8,24.3],[70.0,24.2],[70.6,25.7],[70.1,26.5],[69.5,27.0],[70.6,28.0],[71.9,27.9],[72.8,28.9],[73.4,29.9],[74.4,30.9],[74.55,31.6],[74.6,32.1],[74.8,32.4],[74.65,32.75],[74.3,32.95],[74.0,33.3],[74.05,33.8],[73.95,34.15],[74.35,34.5],[74.9,34.7],[75.7,34.55],[76.4,34.8],[77.05,35.1],[76.8,35.6],[77.8,35.5],[78.1,35.0],[78.3,34.6],[78.75,34.1],[78.9,33.5],[79.4,32.9],[79.2,32.5],[78.75,31.83],[79.0,31.4],[79.7,30.95],[80.25,30.6],[80.95,30.2],[81.5,30.4],[82.3,30.1],[83.3,29.5],[84.2,28.85],[85.2,28.6],[86.0,28.0],[87.2,27.95],[88.15,27.9],[88.6,28.12],[88.85,27.35],[89.1,27.75],[89.6,28.2],[90.4,28.1],[91.3,28.0],[91.65,27.8],[92.5,27.9],[93.8,28.7],[95.4,29.15],[96.1,29.4],[96.6,28.6],[97.35,28.2],[97.0,27.7],[96.0,27.3],[95.2,26.6],[94.6,25.5],[94.3,24.0],[93.4,23.9],[93.2,22.2],[92.6,22.0],[92.25,21.9],[92.25,20.7],[91.5,20.0],[88,4],[66,4],[66,22.8]];
+const C_NAMES=['Sea','India','Pakistan','Bangladesh','Nepal','Bhutan','Sri Lanka','Afghanistan','Maldives','Neighbouring country'];
+function inEll(lon,lat,e){const dx=(lon-e[0])/e[2],dy=(lat-e[1])/e[3];return dx*dx+dy*dy<1;}
+function classify(lon,lat){
+  for(const d of MV_DOTS){const dx=(lon-d[0])*KX,dy=lat-d[1];if(dx*dx+dy*dy<0.0049)return 8;}
+  for(const d of LK_DOTS){const dx=(lon-d[0])*KX,dy=lat-d[1];if(dx*dx+dy*dy<0.0036)return 1;}
+  for(const e of ISLE_ELL){if(inEll(lon,lat,e))return 1;}
+  if(pip(lon,lat,SRI))return 6;
+  if(!pip(lon,lat,MAIN))return 0;
+  if(pip(lon,lat,BD))return 3;
+  if(pip(lon,lat,BT))return 5;
+  if(pip(lon,lat,NP))return 4;
+  if(pip(lon,lat,PK))return 2;
+  if(pip(lon,lat,AF))return 7;
+  if(pip(lon,lat,IN))return 1;
+  return 9;
+}
+
+/* ---- relief features (metres) ---- */
+const CREST=[[73.8,35.6],[74.3,35.4],[75.5,34.3],[76.5,33.6],[77.5,32.8],[78.5,31.6],[79.5,30.8],[80.5,30.2],[81.5,29.8],[82.5,29.3],[83.5,28.7],[84.5,28.5],[85.5,28.2],[86.9,27.95],[88.1,27.8],[89.5,28.0],[90.5,28.1],[91.5,28.0],[92.5,27.9],[93.5,28.3],[94.5,29.0],[95.4,29.6],[96.5,29.3],[98,28.9]];
+function crestLat(lon){return interp(CREST,lon);}
+const WGL=[[8.5,77.35],[9.6,77.15],[10.5,76.9],[11.4,76.6],[12.1,75.6],[13.5,74.9],[15.0,74.3],[16.5,74.0],[18.0,73.75],[19.5,73.6],[21.2,73.4]];
+function mkR(pts,h,w){const sp=pts.map(p=>[p[0]*KX,p[1]]);let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const p of sp){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);}const m=w*3;return{sp,h,w,x0:x0-m,x1:x1+m,y0:y0-m,y1:y1+m};}
+const RIDGES=[
+  mkR([[74.0,36.4],[75.3,36.1],[76.5,35.8],[77.4,35.4],[78.2,34.8]],6600,.36),
+  mkR([[67.3,34.7],[68.8,35.3],[70.3,35.8],[71.8,36.3],[73.4,36.7],[74.5,36.9]],5200,.5),
+  mkR([[64.5,34.3],[66.0,34.6],[67.5,34.8]],4200,.5),
+  mkR([[69.7,33.95],[70.9,34.1]],3800,.22),
+  mkR([[69.4,29.6],[70.0,30.8],[70.1,31.8],[69.9,32.7]],2600,.35),
+  mkR([[67.0,30.6],[68.6,31.0]],2300,.35),
+  mkR([[67.4,25.6],[67.2,27.0],[67.1,28.2]],1600,.25),
+  mkR([[61.8,25.7],[63.5,25.9],[65.5,26.0]],1300,.3),
+  mkR([[62.5,26.6],[65.5,27.0]],1600,.3),
+  mkR([[73.7,34.4],[74.5,33.7],[75.4,33.2],[76.2,32.8]],4200,.25),
+  mkR([[71.6,32.7],[73.0,32.7]],900,.15),
+  mkR(WGL.map(p=>[p[1],p[0]]),1150,.3),
+  mkR([[78.4,11.9],[78.9,13.6],[79.4,15.2],[80.5,16.9],[81.8,17.9],[83.0,18.6],[84.2,19.6],[85.3,20.6]],850,.32),
+  mkR([[74.0,21.6],[76.0,21.6],[78.3,22.0],[80.2,22.4],[81.6,22.6]],900,.3),
+  mkR([[74.6,23.4],[77.0,23.3],[79.0,23.6],[81.2,24.3],[82.8,24.8]],600,.3),
+  mkR([[72.6,24.3],[73.5,25.3],[74.4,26.3],[75.6,27.3],[76.7,28.2]],750,.28),
+  mkR([[96.8,27.6],[95.6,27.0],[94.7,25.8],[94.1,24.6],[93.5,23.3],[93.1,22.0],[92.7,20.8]],2100,.5),
+  mkR([[93.6,20.6],[94.2,19.0],[94.5,17.5],[94.7,16.2]],1500,.35),
+  mkR([[92.0,23.0],[92.2,21.6]],650,.2)
+];
+const BLOBS=[[76,23.8,2.6,1.3,480],[79.5,24.8,1.8,1.0,350],[85,23.3,2.0,1.1,600],[81.5,23.6,1.3,.9,500],[91.3,25.6,1.4,.45,1400],[66,33.5,5.5,3.5,2400],[65.5,28.3,3.5,2.6,1100],[59,30,4,6,1300],[97.6,21.5,1.8,3,1000],[80.75,7.05,.45,.5,1500],[70.8,21.5,.8,.5,250],[73.0,33.1,1.0,.5,500],[66.5,31.5,2.5,1.4,1300],[67.2,30.0,1.2,1.0,1700]];
+const THAR=[71.5,27.0,3.2,2.4,130];
+const PEAKS=[[86.925,27.988,8849,.2],[88.147,27.703,8586,.2],[87.089,27.889,8485,.15],[86.661,28.094,8188,.15],[83.493,28.697,8167,.18],[84.561,28.549,8163,.16],[83.82,28.596,8091,.16],[79.97,30.376,7816,.17],[74.589,35.237,8126,.2],[76.513,35.881,8611,.2],[76.696,35.725,8080,.14],[71.84,36.255,7708,.18],[95.06,29.63,7782,.18],[81.31,31.07,6638,.12],[90.69,28.05,7570,.15],[77.06,10.17,2695,.16],[76.74,11.40,2637,.16],[80.77,7.0,2524,.14],[72.78,24.65,1722,.12],[70.53,21.49,1069,.1],[86.13,23.96,1350,.1],[82.55,18.22,1680,.12],[78.43,22.45,1350,.12],[91.88,25.55,1965,.1],[95.0,25.74,3826,.16],[70.05,31.6,3487,.14]];
+const DIPS=[[74.85,34.05,.38,1600],[85.32,27.70,.12,1350],[69.18,34.53,.3,1800],[77.58,34.16,.22,3500]];
+function blobVal(b,lon,lat){const dx=(lon-b[0])/b[2],dy=(lat-b[1])/b[3];const f=1-dx*dx-dy*dy;return f<=0?0:b[4]*sstep(0,1,f);}
+function ridgeVal(r,x,y){if(x<r.x0||x>r.x1||y<r.y0||y>r.y1)return 0;let d=1e9;for(let i=0;i<r.sp.length-1;i++){const a=r.sp[i],b=r.sp[i+1];const v=dSeg(x,y,a[0],a[1],b[0],b[1]);if(v<d)d=v;}return r.h*Math.exp(-(d*d)/(r.w*r.w));}
+function himalaya(lon,lat,n1){
+  if(lon<73.6)return[0,0];
+  const d=lat-crestLat(lon);const tw=sstep(73.6,75.2,lon);
+  let m=0,p=0;
+  if(d>=0){m=d<.4?lerp(6400,4600,d/.4):0;if(lon>74.8)p=(4700+(n1-.5)*900-Math.max(0,d-3)*250)*sstep(.1,.5,d);}
+  else{const t=-d;
+    if(t<.35)m=lerp(6400,5200,t/.35);
+    else if(t<1.45)m=lerp(5200,1900,(t-.35)/1.1);
+    else if(t<1.85)m=lerp(1900,900,(t-1.45)/.4);
+    else if(t<2.25)m=lerp(900,220,(t-1.85)/.4);}
+  return[m*tw,p*tw];
+}
+function elevAt(lon,lat){
+  const x=lon*KX;
+  const n1=fbm(lon*1.6+11.3,lat*1.6-7.1,4);
+  const n2=fbm(lon*4.7+3.3,lat*4.7+9.2,4);
+  const rn=1-Math.abs(2*fbm(lon*8.1+1.7,lat*8.1-4.4,3)-1);
+  const wx=(fbm(lon*.8+5.1,lat*.8+2.3,3)-.5)*.9, wy=(fbm(lon*.8-3.7,lat*.8+8.8,3)-.5)*.9;
+  const n3=fbm(lon*2.3+7.7,lat*2.3+1.9,3);
+  const ind=8+Math.max(0,lat-23.8)*38, gan=6+Math.max(0,89.6-lon)*17.5;
+  let base=lerp(ind,gan,sstep(72.5,76.5,lon))+(n1-.5)*50;
+  const th=blobVal(THAR,lon+wx,lat+wy); if(th>0) base=Math.max(base,base*.4+th*(.55+.9*n2));
+  let p=0;
+  if(lat<23.2&&lat>7.8&&lon>72.6&&lon<87.5){const wl=interp(WGL,lat);if(lon>wl-.25){p=clamp(760-(lon-wl)*72,160,760)*sstep(23.0,21.4,lat)*(.85+.3*n1);}}
+  for(const b of BLOBS){const v=blobVal(b,lon+wx,lat+wy)*(.7+.6*n3);if(v>p)p=v;}
+  const hm=himalaya(lon,lat,n1); if(hm[1]>p)p=hm[1];
+  let m=hm[0]*(.62+.34*n2+.26*rn);
+  const xw=x+wx*.35,yw=lat+wy*.35;
+  for(const r of RIDGES){let v=ridgeVal(r,xw,yw);if(!v)continue;v*=r.h>3000?(.62+.34*n2+.26*rn):(.3+.95*n3)*(.75+.4*rn);if(v>m)m=v;}
+  let e=Math.max(base,p,m);
+  for(const k of PEAKS){const dx=x-k[0]*KX,dy=lat-k[1],d2=dx*dx+dy*dy,R=k[3];if(d2<9*R*R){const v=k[2]*Math.exp(-d2/(R*R));if(v>e)e=v;}}
+  for(const q of DIPS){const dx=x-q[0]*KX,dy=lat-q[1],w=Math.exp(-(dx*dx+dy*dy)/(q[2]*q[2]));if(e>q[3])e=lerp(e,q[3],w);}
+  return Math.max(1,e);
+}
+
+/* ---- rainfall: interpolated from approximate station normals (mm/yr) ---- */
+const ST=[[67.0,24.9,200],[68.4,25.4,180],[67.0,30.2,250],[71.6,34.0,450],[73.0,33.7,1150],[74.3,31.5,650],[71.5,30.2,200],[68.4,28.3,100],[62.3,25.1,100],[69.2,34.5,330],[65.7,31.6,180],[62.2,34.3,240],[70.9,26.9,200],[73.3,28.0,280],[69.7,23.25,350],[72.6,23.0,780],[75.8,26.9,650],[77.2,28.6,780],[76.8,30.7,1100],[80.9,26.8,1000],[85.1,25.6,1100],[88.4,22.6,1600],[91.7,26.1,1700],[94.9,27.5,2800],[93.9,24.8,1400],[92.7,23.7,2500],[91.3,23.8,2200],[90.4,23.8,2000],[91.9,24.9,4200],[91.8,22.3,2900],[89.5,22.8,1800],[88.6,24.4,1500],[85.8,20.3,1500],[81.6,21.3,1300],[79.1,21.1,1050],[77.4,23.3,1150],[75.9,22.7,950],[72.9,19.1,2400],[73.9,18.5,700],[73.3,17.0,3200],[73.9,15.4,2900],[74.9,12.9,3500],[75.8,11.3,3200],[76.3,10.0,3000],[76.95,8.5,1800],[78.1,9.9,850],[80.3,13.1,1400],[77.6,13.0,950],[78.5,17.4,800],[75.9,17.7,550],[83.3,17.7,1100],[85.3,27.7,1400],[84.0,28.2,3900],[87.3,26.5,1900],[81.6,28.05,1300],[89.6,27.5,650],[89.4,26.85,4000],[77.2,31.1,1500],[74.8,34.1,700],[78.0,30.3,2000],[88.3,27.0,3000],[91.9,25.57,2200],[79.9,6.9,2400],[80.4,6.7,3700],[80.0,9.7,1300],[81.2,8.6,1600],[81.1,6.1,1000],[80.8,6.97,2000],[73.5,4.2,1900],[92.7,11.7,3000],[92.9,20.1,4600],[96.2,16.8,2700],[96.1,22.0,850],[91.1,29.65,450],[88.9,29.3,430],[77.6,34.2,100],[74.3,35.9,130],[75.6,35.3,200],[80.1,32.5,70],[60.9,29.5,90],[60.6,25.3,110],[78.1,8.8,650],[78.8,9.4,800],[80.0,14.4,1050],[77.6,14.7,550],[76.9,15.1,500],[72.8,21.2,1200],[70.8,22.3,650],[69.6,21.6,500],[79.9,23.2,1350],[66.6,29.0,180],[64.0,27.0,110],[96.5,26.0,2200],[95.5,19.0,1200]];
+function rainAt(lon,lat,c){
+  let sw=0,sv=0;
+  for(const s of ST){const dx=(lon-s[0])*KX,dy=lat-s[1],d2=dx*dx+dy*dy+.02;const w=1/(d2*Math.sqrt(d2));sw+=w;sv+=w*s[2];}
+  let r=sv/sw;
+  if(lat>8&&lat<21.5&&c===1){const wl=interp(WGL,lat);if(lon<wl+.05)r=Math.max(r,2700);else if(lon<wl+.6)r=Math.min(r,lerp(2700,r,(lon-wl)/.6));}
+  const dx=(lon-91.6)*KX,dy=lat-25.28;r=Math.max(r,11800*Math.exp(-(dx*dx+dy*dy*3)/.02));
+  if(lon>74.5&&lon<97){const d=lat-crestLat(lon);if(d>.2)r=Math.min(r,450);else if(d>-1.3&&d<-.2&&lon>79)r*=1.3;}
+  return r;
+}
+
+/* ---- language families (very simplified) ---- */
+const DRAV=[[73.4,14.9],[74.3,14.9],[74.5,15.8],[75.5,17.3],[76.6,18.4],[77.6,19.0],[78.5,19.9],[80.0,19.6],[81.3,18.0],[82.5,18.3],[83.6,18.8],[84.8,19.2]];
+// 0 Indo-Aryan, 1 Dravidian, 2 Tibeto-Burman, 3 Iranian, 4 Austroasiatic
+function langAt(lon,lat,c){
+  if(c===9){return lon<64?3:2;}
+  if(c===7)return 3;
+  if(c===5)return 2;
+  if(c===8)return 0;
+  if(c===6){return (lat>8.5||(lon>81.2&&lat>7.0))?1:0;}
+  if(c===2){if(lon>66&&lon<67.6&&lat>28&&lat<30.2)return 1;if(lat>34.8)return lon>75.2?2:0;if(lat>=28.5&&lon<70.6&&lat<34.8)return 3;if(lat<28.5&&lon<66.8)return 3;return 0;}
+  const d=(lon>74.5&&lon<97)?lat-crestLat(lon):-9;
+  if(c===4){return d>-.45?2:0;}
+  if(c===3){return (lon>91.9&&lat>21.5&&lat<23.6)?2:0;}
+  if(c===1){
+    if(d>-.25&&lon>75.5)return 2;
+    if(lat>33.2&&lon>75.6)return 2;
+    if(lat>27.0&&lon>88.3&&lon<88.95)return 2;
+    if(lon>91.6&&lat>27.3)return 2;
+    if(lon>89.8&&lon<95.8&&lat>26.0&&lat<27.4)return 0;
+    if(lon>91&&lon<92.4&&lat>25.1&&lat<26.0)return 4;
+    if(lon>89.8&&lon<=91&&lat>25.1&&lat<26.0)return 2;
+    if(lon>92.3&&lat>22)return 2;
+    if(lon>84.6&&lon<86.6&&lat>22.0&&lat<23.6)return 4;
+    if(lon>73&&lon<85&&lat<interp(DRAV,lon))return 1;
+    if(lon>91.5&&lat>23&&lat<24.6&&lon<92.3)return 0;
+    return 0;
+  }
+  return 0;
+}
+/*MODEL-END*/
+
+/* ================= DATA ================= */
+const RIVERS=[
+ {n:'Indus',w:3.4,p:[[81.6,31.0],[80.3,31.8],[79.3,32.6],[78.2,33.4],[77.6,34.1],[76.6,34.6],[75.8,35.2],[75.0,35.5],[74.5,35.75],[74.1,35.6],[73.4,35.2],[72.9,34.6],[72.25,33.9],[71.9,33.0],[71.5,32.2],[71.0,31.2],[70.6,30.0],[70.1,28.9],[69.3,28.0],[68.6,27.2],[68.2,26.2],[68.35,25.4],[68.0,24.6],[67.6,24.0],[67.3,23.8]]},
+ {n:'Sutlej',w:2,p:[[81.2,30.75],[79.6,31.5],[78.6,31.6],[77.8,31.4],[76.9,31.4],[76.4,31.1],[75.6,31.1],[75.0,31.1],[74.4,30.9],[73.5,30.2],[72.5,29.6],[71.6,29.35],[71.0,29.0],[70.3,28.95]]},
+ {n:'Chenab',w:2,p:[[77.3,32.6],[76.4,33.1],[75.6,33.2],[75.0,33.0],[74.6,32.75],[74.0,32.3],[73.4,31.6],[72.6,31.0],[72.0,30.4],[71.4,29.7],[71.0,29.2]]},
+ {n:'Jhelum',w:1.8,p:[[75.3,33.7],[74.8,34.05],[74.4,34.2],[73.8,34.1],[73.5,33.5],[73.7,32.9],[73.2,32.3],[72.5,31.6],[72.2,31.2]]},
+ {n:'Kabul',w:1.8,p:[[68.0,34.5],[69.2,34.5],[70.4,34.4],[71.6,34.0],[72.25,33.9]]},
+ {n:'Ganga',w:3.4,p:[[79.07,30.92],[78.6,30.4],[78.3,30.1],[78.2,29.6],[78.4,28.6],[79.3,27.4],[80.3,26.5],[81.3,25.7],[81.9,25.4],[83.0,25.3],[84.0,25.55],[85.1,25.62],[86.0,25.4],[87.0,25.3],[87.8,25.1],[88.2,24.7],[88.6,24.3],[89.2,23.9],[89.75,23.75],[90.1,23.4],[90.4,22.9],[90.6,22.4],[90.7,22.1]]},
+ {n:'Hooghly',w:1.8,p:[[88.2,24.65],[88.3,23.8],[88.4,23.0],[88.35,22.55],[88.15,22.2],[88.1,21.75]]},
+ {n:'Yamuna',w:2.2,p:[[78.45,31.0],[77.85,30.4],[77.4,29.9],[77.25,28.65],[77.6,27.9],[78.0,27.2],[79.0,26.75],[80.1,26.0],[81.2,25.55],[81.9,25.4]]},
+ {n:'Brahmaputra',w:3.4,p:[[82.0,30.4],[83.8,29.6],[85.5,29.3],[87.5,29.25],[89.5,29.4],[91.0,29.3],[92.5,29.25],[94.0,29.4],[94.8,29.65],[95.3,29.4],[95.2,28.8],[95.3,28.1],[94.7,27.6],[94.0,27.1],[93.2,26.75],[92.5,26.45],[91.7,26.18],[90.6,26.15],[89.9,25.9],[89.7,25.2],[89.75,24.4],[89.75,23.75]]},
+ {n:'Godavari',w:2.4,p:[[73.5,19.95],[74.6,19.6],[75.6,19.35],[76.8,18.95],[78.0,18.85],[79.2,18.75],[80.0,18.4],[80.9,17.75],[81.7,16.9],[82.2,16.6]]},
+ {n:'Krishna',w:2.4,p:[[73.65,17.95],[74.3,16.9],[75.2,16.55],[76.2,16.3],[77.3,16.2],[78.2,16.1],[79.3,16.65],[80.0,16.6],[80.6,16.5],[81.0,15.95]]},
+ {n:'Narmada',w:2.2,p:[[81.75,22.67],[80.8,22.95],[79.9,23.15],[78.9,22.85],[77.7,22.6],[76.6,22.2],[75.6,22.15],[74.6,22.0],[73.6,21.85],[72.8,21.65]]},
+ {n:'Tapi',w:1.6,p:[[78.2,21.7],[76.5,21.2],[75.0,21.15],[73.8,21.25],[72.8,21.1]]},
+ {n:'Mahanadi',w:2,p:[[81.9,20.3],[81.9,21.1],[82.8,21.6],[83.7,21.5],[84.5,20.6],[85.5,20.45],[86.4,20.3],[86.7,20.25]]},
+ {n:'Kaveri',w:2,p:[[75.55,12.4],[76.3,12.35],[76.8,12.4],[77.3,12.25],[77.75,12.1],[78.0,11.4],[78.7,10.9],[79.3,10.95],[79.85,11.1]]}
+];
+const BASE_LABELS=[
+ ['nations','India',78.6,23.4],['nations','Pakistan',69.4,28.6],['nations','Bangladesh',90.2,23.9,'sm'],['nations','Nepal',83.6,28.25,'sm'],['nations','Bhutan',90.5,27.35,'sm'],['nations','Sri Lanka',80.7,7.9,'sm'],['nations','Afghanistan',66.2,33.0],['nations','Maldives',73.3,5.9,'sm'],['nations','Tibet (China)',83.0,33.4,'nb sm'],['nations','Myanmar',95.9,21.6,'nb sm'],['nations','Iran',60.9,27.6,'nb sm'],
+ ['seas','Arabian Sea',65.5,15.5],['seas','Bay of Bengal',88.0,15.5],['seas','Indian Ocean',81.5,3.6],['seas','Laccadive Sea',74.8,7.4],
+ ['ranges','Himalaya',82.6,29.9],['ranges','Karakoram',76.4,36.3],['ranges','Hindu Kush',69.6,36.1],['ranges','Western Ghats',75.0,14.4],['ranges','Eastern Ghats',80.9,17.7],['ranges','Deccan Plateau',77.6,17.0],['ranges','Thar Desert',71.3,27.0],['ranges','Tibetan Plateau',89.0,32.4],['ranges','Indo-Gangetic Plain',81.2,26.6],['ranges','Aravalli',74.6,26.0],['ranges','Sulaiman Range',70.6,31.0],['ranges','Andaman Is.',93.4,12.4],
+ ['rivers','Indus',70.0,28.4],['rivers','Ganga',83.2,25.0],['rivers','Brahmaputra',91.4,26.5],['rivers','Yamuna',78.4,26.6],['rivers','Godavari',79.3,18.5],['rivers','Krishna',78.3,15.8],['rivers','Narmada',76.4,21.9],['rivers','Kaveri',78.0,11.0],['rivers','Mahanadi',84.3,20.9]
+];
+const COUNTRIES=[
+ ['India','New Delhi',1464,3287263,77.21,28.61],['Pakistan','Islamabad',255,881913,73.05,33.69],['Bangladesh','Dhaka',175,147570,90.41,23.81],['Afghanistan','Kabul',43,652230,69.18,34.53],['Nepal','Kathmandu',29.6,147181,85.32,27.72],['Sri Lanka','Sri Jayawardenepura Kotte',23.2,65610,79.9,6.9],['Bhutan','Thimphu',0.79,38394,89.64,27.47],['Maldives','Malé',0.53,298,73.51,4.18]
+];
+const RELIGION=[
+ ['India',[['Hindu',79.8],['Muslim',14.2],['Christian',2.3],['Sikh',1.7],['Other',2.0]],'Census 2011 · Buddhist 0.7%, Jain 0.4% in Other'],
+ ['Pakistan',[['Muslim',96.4],['Hindu',1.6],['Christian',1.4],['Other',0.6]],'Census 2023'],
+ ['Bangladesh',[['Muslim',91.0],['Hindu',8.0],['Buddhist',0.6],['Other',0.4]],'Census 2022'],
+ ['Nepal',[['Hindu',81.2],['Buddhist',8.2],['Muslim',5.1],['Christian',1.8],['Other',3.7]],'Census 2021 · Kirat 3.2% in Other'],
+ ['Sri Lanka',[['Buddhist',70.2],['Hindu',12.6],['Muslim',9.7],['Christian',7.4],['Other',0.1]],'Census 2012'],
+ ['Bhutan',[['Buddhist',75],['Hindu',23],['Other',2]],'Estimate (Pew)'],
+ ['Afghanistan',[['Muslim',99.7],['Other',0.3]],'Estimate'],
+ ['Maldives',[['Muslim',100]],'Islam is the state religion']
+];
+const RCOL={Hindu:'var(--r-hindu)',Muslim:'var(--r-muslim)',Buddhist:'var(--r-buddhist)',Christian:'var(--r-christian)',Sikh:'var(--r-sikh)',Other:'var(--r-other)'};
+
+const LESSONS=[
+{id:'region',tab:'Region',kicker:'Orientation',title:'The Region',layer:'nations',labels:['nations','seas'],view:[80,20,44],
+ lead:'South Asia is the land between the Himalaya–Hindu Kush mountain wall and the Indian Ocean. Its eight countries are home to about 2 billion people, roughly a quarter of humanity, on about 3.5% of Earth\'s land.',
+ obj:['Name and locate the eight countries of South Asia and their capitals','Explain why the region is often called a subcontinent','Describe how mountains and oceans form its natural boundaries'],
+ prose:['<p>Geographers often call the region the <b>Indian subcontinent</b>. It rides on its own tectonic plate and is walled off from the rest of Asia by the highest mountains on Earth, so its rivers, climate and history have developed with a strong regional character.</p>','<p>The eight countries below are the members of <b>SAARC</b>, the South Asian Association for Regional Cooperation, founded in Dhaka in 1985. Afghanistan joined in 2007; it is sometimes grouped with Central Asia instead. Three of the eight (Afghanistan, Nepal and Bhutan) are landlocked, and one (the Maldives) is made entirely of coral islands.</p>','<p class="aside">Borders on this map are simplified for teaching. Kashmir is disputed between India, Pakistan and China. The map follows the Line of Control and Line of Actual Control approximately and does not endorse any claim.</p>'],
+ widget:'countries',
+ stops:[
+  {n:'New Delhi',lon:77.21,lat:28.61,d:9,k:'Capital · India',t:'Seat of India\'s government since 1931; the British moved the capital here from Calcutta (Kolkata) in 1911. New Delhi lies on the Yamuna River inside the much older city of Delhi, capital of many earlier empires.'},
+  {n:'Islamabad',lon:73.05,lat:33.69,d:9,k:'Capital · Pakistan',t:'A planned capital built in the 1960s at the foot of the Margalla Hills, replacing Karachi. Its twin city, Rawalpindi, lies next door.'},
+  {n:'Dhaka',lon:90.41,lat:23.81,d:9,k:'Capital · Bangladesh',t:'Capital of Bangladesh, on the Buriganga River in the heart of the Bengal delta. SAARC was founded here in 1985.'},
+  {n:'Kabul',lon:69.18,lat:34.53,d:9,k:'Capital · Afghanistan',t:'At about 1,790 m in a valley of the Hindu Kush, on old routes that link South and Central Asia, including the road to the Khyber Pass.'},
+  {n:'Kathmandu',lon:85.32,lat:27.72,d:8,k:'Capital · Nepal',t:'In a bowl-shaped Himalayan valley at about 1,400 m, the bed of an ancient lake. The valley\'s seven monument zones form a UNESCO World Heritage Site.'},
+  {n:'Kotte and Colombo',lon:79.9,lat:6.9,d:8,k:'Capital · Sri Lanka',t:'Sri Jayawardenepura Kotte is the official capital, home to Parliament. Neighbouring Colombo is the commercial capital and the main port.'},
+  {n:'Thimphu',lon:89.64,lat:27.47,d:8,k:'Capital · Bhutan',t:'Bhutan\'s capital, at about 2,300 m. Bhutan measures progress with Gross National Happiness as well as economic output.'},
+  {n:'Malé',lon:73.51,lat:4.18,d:7,k:'Capital · Maldives',t:'One of the most densely populated island cities in the world, packed onto a coral island of about 2 km².'}
+ ],
+ terms:[['Subcontinent','A large, distinct part of a continent. South Asia is set apart by its own tectonic plate and by mountain barriers.'],['SAARC','South Asian Association for Regional Cooperation, founded 1985, with eight member states.'],['Landlocked','Having no coastline. Afghanistan, Nepal and Bhutan depend on neighbours\' ports for sea trade.'],['Line of Control','The military control line dividing Indian- and Pakistani-administered Kashmir.']],
+ discuss:'Three South Asian countries are landlocked. How might the lack of a coastline shape their trade and their relations with neighbours?'},
+
+{id:'landforms',tab:'Landforms',kicker:'Physical geography',title:'Landforms',layer:'relief',labels:['ranges','seas','rivers'],view:[80,22,42],
+ lead:'Three great landform zones run from north to south: a mountain wall, the river plains at its foot, and the ancient rock of the peninsula. Coasts, deltas and island chains complete the picture.',
+ obj:['Explain how plate collision built the Himalaya','Describe the three major landform zones','Read a cross-section and relate it to the 3D map'],
+ prose:['<p>About 50 million years ago the northward-moving <b>Indian Plate</b> collided with Eurasia. The collision folded and stacked ancient sea-floor sediments into the Himalaya. It has not stopped: India still moves north about 4–5 cm a year, the mountains keep rising, and the region suffers large earthquakes such as Nepal\'s 2015 Gorkha earthquake.</p>','<p>Rivers carry eroded rock down from the mountains and spread it across the <b>Indo-Gangetic Plain</b>, one of the largest areas of fertile alluvium on Earth. South of the plain, the <b>Deccan Plateau</b> is built from very old crystalline rock and, in the west, from thick lava flows called the Deccan Traps, about 66 million years old.</p>','<p class="aside">The 3D model exaggerates height about 28 times so that relief is visible across a 4,000 km region. Use the Vertical slider on the map to change it.</p>'],
+ widget:'profile',
+ stops:[
+  {n:'Mount Everest',lon:86.925,lat:27.988,d:6,k:'8,849 m · Nepal–China border',t:'Earth\'s highest summit, called Sagarmatha in Nepali and Chomolungma in Tibetan. Nepal and China jointly re-measured it in 2020. Marine fossils near the top show that these rocks formed on an ancient sea floor.'},
+  {n:'K2',lon:76.513,lat:35.881,d:6,k:'8,611 m · Karakoram',t:'The world\'s second-highest mountain, on the Pakistan–China border. The Karakoram holds some of the longest glaciers outside the polar regions, including the Siachen and the Baltoro.'},
+  {n:'Khyber Pass',lon:71.1,lat:34.08,d:7,k:'1,070 m · Pakistan–Afghanistan',t:'A gap through the Spin Ghar range, used for thousands of years by traders, migrants and armies moving between Central Asia and the Indus plain.'},
+  {n:'Indo-Gangetic Plain',lon:80.3,lat:26.5,d:14,k:'Alluvial plain',t:'Layers of river silt hundreds of metres thick make this one of the most fertile and densely farmed regions on Earth. Kanpur, marked here, lies only about 125 m above sea level although it is roughly 1,000 km from the sea.'},
+  {n:'Thar Desert',lon:71.0,lat:27.0,d:13,k:'Hot desert · ~200,000 km²',t:'The Great Indian Desert spans India and Pakistan. Dunes, scrub and salt lakes support herders and farmers, making it one of the most densely populated deserts in the world.'},
+  {n:'Rann of Kutch',lon:70.0,lat:23.8,d:9,k:'Seasonal salt marsh',t:'Shallow seawater and river water flood this flat land in the monsoon, then evaporate to leave a white salt crust. The Little Rann shelters the Indian wild ass.'},
+  {n:'Deccan Plateau',lon:77.5,lat:17.5,d:16,k:'Plateau · ~300–900 m',t:'The plateau tilts gently east, so most peninsular rivers rise near the west coast and flow across India to the Bay of Bengal. Deccan Trap basalts cover much of its north-west.'},
+  {n:'Western Ghats',lon:77.06,lat:10.17,d:8,k:'Anamudi · 2,695 m',t:'A 1,600-km escarpment along the west coast. Anamudi is the highest point in India south of the Himalaya. The range is a UNESCO World Heritage Site and one of the world\'s biodiversity hotspots.'},
+  {n:'Ganges–Brahmaputra Delta',lon:89.4,lat:22.6,d:10,k:'World\'s largest delta',t:'The Ganga, Brahmaputra and Meghna drain about 1.7 million km² and carry around a billion tonnes of sediment a year. Much of Bangladesh is built from this delta.'},
+  {n:'Sri Lanka Central Highlands',lon:80.77,lat:7.0,d:7,k:'Pidurutalagala · 2,524 m',t:'A knot of mountains in the island\'s south-central interior. Tea estates cover the slopes, and the highlands are a UNESCO World Heritage Site.'},
+  {n:'Maldives',lon:73.4,lat:4.6,d:9,k:'Coral atolls',t:'About 1,190 coral islands grouped into 26 atolls. Average ground level is only about 1.5 m above the sea.'}
+ ],
+ terms:[['Orogeny','Mountain building, here caused by the collision of two continental plates.'],['Alluvium','Sand, silt and clay deposited by rivers; the soil of the great plains.'],['Doab','Land between two converging rivers, such as the Ganga–Yamuna Doab. Punjab means "five waters".'],['Delta','A landform built where a river drops sediment as it enters the sea.'],['Atoll','A ring-shaped coral reef or chain of islands around a lagoon.']],
+ discuss:'Why do most of South Asia\'s people live on the plains rather than on the plateau or in the mountains? What might change that pattern?'},
+
+{id:'monsoon',tab:'Monsoon',kicker:'Climate and rivers',title:'Monsoon & Rivers',layer:'rain',labels:['seas','rivers'],view:[81,20,44],winds:true,
+ lead:'Monsoon comes from the Arabic word mawsim, "season". Each summer the land heats faster than the ocean, and moist winds blow in from the southwest. Each winter the pattern reverses.',
+ obj:['Explain the seasonal reversal of winds','Use the rainfall layer to identify wet and dry regions','Distinguish orographic rain from rain shadow','Compare Himalayan and peninsular rivers'],
+ prose:['<p>The southwest monsoon usually reaches Kerala around <b>1 June</b> and covers almost all of India by early July. In much of the region it brings most of the year\'s rain between June and September. Where the winds meet the Western Ghats or the Meghalaya plateau, air is forced upward, cools and drops heavy <b>orographic rain</b>. Land on the far side lies in a <b>rain shadow</b>.</p>','<p>In winter, cool dry air flows from the land toward the sea. Winds crossing the Bay of Bengal from the northeast pick up moisture and bring rain to Tamil Nadu and Sri Lanka from October to December: the <b>northeast monsoon</b>.</p>','<p>Himalayan rivers such as the Indus, Ganga and Brahmaputra are fed by snow and glaciers as well as rain, so they flow all year. Peninsular rivers such as the Godavari, Krishna and Kaveri depend on monsoon rain and shrink in the dry season.</p>'],
+ widget:'monsoon',
+ stops:[
+  {n:'Kochi, Kerala',lon:76.27,lat:9.93,d:9,k:'Monsoon onset · ~1 June',t:'The India Meteorological Department declares the monsoon\'s arrival when steady rain and winds set in over Kerala, normally around 1 June. Farmers across the region watch this date closely.'},
+  {n:'Mumbai',lon:72.88,lat:19.08,d:8,k:'~2,400 mm a year',t:'Most of the city\'s rain falls between June and September. On 26 July 2005, about 944 mm fell at Santacruz in 24 hours, one of the heaviest daily totals ever recorded in India.'},
+  {n:'Pune',lon:73.86,lat:18.52,d:8,k:'Rain shadow · ~700 mm',t:'Only about 120 km inland from Mumbai, but on the leeward side of the Western Ghats. Air sinks and warms after crossing the mountains, so Pune gets less than a third of Mumbai\'s rain.'},
+  {n:'Mawsynram',lon:91.58,lat:25.30,d:7,k:'~11,800 mm a year',t:'Moist winds from the Bay of Bengal are funnelled against the steep southern edge of the Meghalaya plateau. Mawsynram and nearby Cherrapunji compete for the title of wettest place on Earth.'},
+  {n:'Jacobabad',lon:68.44,lat:28.28,d:9,k:'Extreme heat',t:'One of the hottest cities on Earth, with summer highs above 50 °C. Scientists have measured combinations of heat and humidity here close to the limit the human body can tolerate.'},
+  {n:'Leh, Ladakh',lon:77.58,lat:34.16,d:8,k:'~100 mm a year · 3,500 m',t:'North of the Great Himalaya, monsoon clouds rarely reach. Ladakh is a cold desert where farming depends on channels carrying meltwater from snow and glaciers.'},
+  {n:'Chennai',lon:80.27,lat:13.08,d:9,k:'Northeast monsoon',t:'Chennai gets most of its rain from October to December, when northeast winds cross the Bay of Bengal. Compare its bars with Mumbai\'s in the lesson panel.'},
+  {n:'Odisha coast',lon:85.83,lat:19.81,d:9,k:'Cyclone coast',t:'Tropical cyclones form over the warm Bay of Bengal, mostly before and after the monsoon. After a 1999 super cyclone killed about 10,000 people, Odisha built shelters and warning systems that have since saved many lives.'},
+  {n:'Gangotri Glacier',lon:79.08,lat:30.92,d:7,k:'Source of the Ganga',t:'Meltwater from this glacier emerges at Gaumukh as the Bhagirathi, a headstream of the Ganga. Snow and ice keep Himalayan rivers flowing through the dry season.'},
+  {n:'Brahmaputra Great Bend',lon:95.0,lat:29.5,d:8,k:'Yarlung Tsangpo Gorge',t:'The river flows east across Tibet as the Yarlung Tsangpo, then turns sharply around Namcha Barwa through one of the deepest canyons on Earth before entering India. In 2025 China began building a very large hydropower project on this stretch, which India and Bangladesh watch closely.'}
+ ],
+ terms:[['Monsoon','A seasonal reversal of prevailing winds, bringing a wet season and a dry season.'],['Orographic rain','Rain caused when moist air is forced up over mountains, cools and condenses.'],['Rain shadow','A drier area on the leeward side of mountains.'],['ITCZ','Intertropical Convergence Zone: a belt of rising air and rain that shifts north over South Asia in summer.'],['Perennial river','A river that flows all year, often fed by snow and glacier melt.']],
+ discuss:'A late or weak monsoon can raise food prices across the region. Trace the chain of effects from rain to farm to market to household.'},
+
+{id:'culture',tab:'Culture',kicker:'Peoples and languages',title:'Peoples & Languages',layer:'lang',labels:['nations'],view:[80,21,44],
+ lead:'South Asia is one of the most linguistically diverse places on Earth. Hundreds of languages belong to a few large families and are written in dozens of scripts.',
+ obj:['Identify the five main language families and where they are spoken','Connect language to identity and politics','Link food traditions to climate and farming'],
+ prose:['<p><b>Indo-Aryan</b> languages (Hindi, Urdu, Bengali, Punjabi, Marathi, Gujarati, Nepali, Sinhala and more) dominate the north and the plains. <b>Dravidian</b> languages (Tamil, Telugu, Kannada, Malayalam) dominate the south. <b>Tibeto-Burman</b> languages are spoken across the Himalaya and the northeast, <b>Iranian</b> languages such as Pashto, Dari and Balochi in the west, and <b>Austroasiatic</b> languages such as Khasi and Santali in scattered pockets.</p>','<p>India\'s constitution lists 22 scheduled languages, and in 1956 many Indian state borders were redrawn along language lines. Urdu is Pakistan\'s national language, Bengali (Bangla) is Bangladesh\'s, Nepali is Nepal\'s, Sinhala and Tamil are Sri Lanka\'s, Dzongkha is Bhutan\'s, Dhivehi is the Maldives\', and Pashto and Dari are Afghanistan\'s.</p>','<p>Food follows the land. Rice is the staple of the wet east, the south and the deltas; wheat breads such as roti dominate the drier north-west; hardy millets grow in drylands. Shared passions cross borders too: cricket, film music, and festivals such as Diwali, Eid, Vesak, Holi and Pohela Boishakh, the Bengali New Year.</p>','<p class="aside">The language layer is a simplified sketch of the main family in each area. In reality, languages mix, especially in cities.</p>'],
+ widget:'scripts',
+ stops:[
+  {n:'Lucknow',lon:80.95,lat:26.85,d:9,k:'Hindi–Urdu heartland',t:'Hindi and Urdu share most everyday grammar and vocabulary. They differ mainly in script (Devanagari or Perso-Arabic) and in formal words borrowed from Sanskrit or from Persian and Arabic. Lucknow is known for Urdu poetry and Awadhi cooking.'},
+  {n:'Dhaka · Shaheed Minar',lon:90.4,lat:23.73,d:8,k:'21 February 1952',t:'Students were killed here protesting for Bengali to be a state language of Pakistan. The date is now UNESCO\'s International Mother Language Day, and the movement fed the later struggle for Bangladesh\'s independence.'},
+  {n:'Chennai',lon:80.27,lat:13.08,d:9,k:'Tamil',t:'Tamil has a literary record more than 2,000 years old and in 2004 became the first language India declared "classical". It is also an official language of Sri Lanka and Singapore.'},
+  {n:'Lahore',lon:74.34,lat:31.55,d:8,k:'Punjabi',t:'Punjab, the "land of five rivers", was divided in 1947. Punjabi is written in Shahmukhi (Perso-Arabic) script in Pakistan and in Gurmukhi script in India.'},
+  {n:'Kalat, Balochistan',lon:66.59,lat:29.03,d:9,k:'Brahui',t:'Brahui is a Dravidian language spoken more than 1,000 km from its southern relatives. How it came to be here is still debated by linguists.'},
+  {n:'Shillong, Meghalaya',lon:91.88,lat:25.58,d:8,k:'Khasi',t:'Khasi belongs to the Austroasiatic family, related to languages such as Khmer and Vietnamese. Khasi society is traditionally matrilineal: family names and inheritance pass through the female line.'},
+  {n:'Kerala Kalamandalam',lon:76.29,lat:10.74,d:8,k:'Kathakali',t:'Kerala\'s dance-drama, with painted faces and towering costumes, tells stories from the Mahabharata and Ramayana. India recognises several classical dance forms, including Bharatanatyam, Kathak and Odissi.'},
+  {n:'Mumbai',lon:72.88,lat:19.08,d:8,k:'Film capital',t:'Mumbai\'s Hindi film industry, nicknamed Bollywood, is one of several big film centres; Tamil, Telugu, Malayalam and Bengali cinema are also large. India makes more feature films each year than any other country.'},
+  {n:'Ludhiana, Punjab',lon:75.85,lat:30.9,d:9,k:'Wheat belt',t:'Irrigated Punjab and Haryana are India\'s breadbasket. Wheat breads such as roti and paratha are daily staples in the drier north-west.'},
+  {n:'Bardhaman, West Bengal',lon:87.86,lat:23.23,d:9,k:'Rice bowl',t:'On the wet, flat plains of the east and south, rice is the staple. Bengal, Bangladesh and the southern deltas grow rice in flooded paddies during the monsoon.'},
+  {n:'Leh, Ladakh',lon:77.58,lat:34.16,d:8,k:'Tibetan Buddhist culture',t:'Ladakh\'s monasteries, prayer flags and Tibetic language link it to the culture of the Tibetan Plateau rather than to the plains below.'}
+ ],
+ terms:[['Language family','A group of languages descended from a common ancestor.'],['Script','A writing system. One language can use several scripts, and one script can serve several languages.'],['Lingua franca','A shared language used between speakers of different languages, such as English or Hindustani.'],['Linguistic state','An Indian state whose borders were drawn around a main language, as after 1956.']],
+ discuss:'Bangladesh\'s Language Movement shows how language can shape national identity. Find another South Asian example where language influenced political boundaries.'},
+
+{id:'religion',tab:'Religion',kicker:'Sacred geography',title:'Sacred Geography',layer:'nations',labels:['nations','rivers'],view:[80,22,42],
+ lead:'Four world religions began in South Asia: Hinduism, Buddhism, Jainism and Sikhism. Islam, Christianity and Zoroastrianism arrived over land and by sea. Today the region holds most of the world\'s Hindus and roughly a third of its Muslims.',
+ obj:['Locate the birthplaces and holy sites of South Asia\'s religions','Compare the religious make-up of each country','Explain how faith is written into the landscape'],
+ prose:['<p>Religion is part of the landscape. Rivers such as the Ganga are sacred, mountains such as Kailash are circled by pilgrims of several faiths, and pilgrimage routes have linked distant regions for thousands of years.</p>','<p>Islam reached the coasts with Arab traders in the 7th century and Sindh by conquest in 711–712; it spread widely later under the Delhi Sultanate and the Mughals, often through Sufi teachers. Pakistan, India and Bangladesh each have well over 150 million Muslims.</p>','<p>The 1947 Partition, which divided British India largely along religious lines, remains one of the region\'s defining events. Most South Asian states are home to significant religious minorities.</p>'],
+ widget:'religion',
+ stops:[
+  {n:'Varanasi',lon:83.01,lat:25.32,d:8,k:'Hinduism',t:'Among the world\'s oldest continuously inhabited cities and Hinduism\'s holiest. Pilgrims bathe at the ghats on the Ganga, and many Hindus hope to be cremated here.'},
+  {n:'Prayagraj',lon:81.89,lat:25.43,d:8,k:'Kumbh Mela',t:'Where the Ganga and Yamuna meet. Officials counted more than 600 million pilgrim visits to the 2025 Maha Kumbh Mela over six weeks, one of the largest gatherings in human history.'},
+  {n:'Lumbini',lon:83.28,lat:27.47,d:8,k:'Buddhism · Nepal',t:'Birthplace of Siddhartha Gautama, the Buddha, around the 6th–5th century BCE. A pillar raised by the emperor Ashoka in about 249 BCE marks the spot.'},
+  {n:'Bodh Gaya',lon:84.99,lat:24.69,d:8,k:'Buddhism',t:'Where the Buddha attained enlightenment under the Bodhi tree. The Mahabodhi Temple is a UNESCO World Heritage Site.'},
+  {n:'Sarnath',lon:83.03,lat:25.38,d:7,k:'Buddhism',t:'Site of the Buddha\'s first sermon. The Lion Capital of Ashoka found here is now the national emblem of India.'},
+  {n:'Golden Temple, Amritsar',lon:74.88,lat:31.62,d:8,k:'Sikhism',t:'Harmandir Sahib, the holiest gurdwara of Sikhism. Its community kitchen (langar) serves free meals to tens of thousands of people of any faith every day.'},
+  {n:'Kartarpur Sahib',lon:75.03,lat:32.09,d:8,k:'Sikhism · Pakistan',t:'Guru Nanak, founder of Sikhism, born in 1469 at Nankana Sahib (also in Pakistan), spent his last years here. A visa-free corridor for Indian pilgrims opened in 2019; it has been closed during periods of tension.'},
+  {n:'Palitana',lon:71.82,lat:21.52,d:8,k:'Jainism',t:'Shatrunjaya hill holds more than 800 Jain temples. Jainism, which teaches strict non-violence (ahimsa), was shaped by Mahavira in the 6th–5th century BCE.'},
+  {n:'Mount Kailash',lon:81.31,lat:31.07,d:7,k:'Sacred to four faiths',t:'A 6,638 m peak in Tibet, sacred to Hindus, Buddhists, Jains and followers of Bon. Pilgrims walk a circuit of about 52 km around it; climbing it is not permitted.'},
+  {n:'Kandy',lon:80.64,lat:7.29,d:7,k:'Buddhism · Sri Lanka',t:'The Temple of the Sacred Tooth Relic holds a relic of the Buddha. Buddhism reached Sri Lanka in the 3rd century BCE, traditionally through Mahinda, a son of Ashoka.'},
+  {n:'Paro Taktsang',lon:89.36,lat:27.49,d:7,k:'Buddhism · Bhutan',t:'The Tiger\'s Nest monastery clings to a cliff about 900 m above the Paro valley. Vajrayana Buddhism shapes Bhutan\'s law, architecture and festivals.'},
+  {n:'Data Darbar, Lahore',lon:74.3,lat:31.58,d:8,k:'Sufi Islam',t:'Shrine of the 11th-century Sufi saint Ali Hujwiri. Sufi shrines across the region welcome visitors of many faiths and are famous for qawwali music.'},
+  {n:'Ajmer Sharif',lon:74.63,lat:26.46,d:8,k:'Sufi Islam · India',t:'Shrine of Moinuddin Chishti (died 1236), one of the most visited Muslim pilgrimage sites in South Asia.'},
+  {n:'Old Goa',lon:73.91,lat:15.5,d:8,k:'Christianity',t:'The Portuguese took Goa in 1510; the Basilica of Bom Jesus holds the remains of St Francis Xavier. Kerala\'s Christian communities are older still, tracing their origin to the apostle Thomas.'},
+  {n:'Udvada',lon:72.87,lat:20.48,d:8,k:'Zoroastrianism',t:'Parsis descend from Zoroastrians who left Persia more than a thousand years ago. Udvada\'s fire temple keeps their most sacred fire, burning for centuries.'}
+ ],
+ terms:[['Pilgrimage','A journey to a sacred place. Hindus call such places tirthas, "crossing places".'],['Sufism','A mystical tradition within Islam, central to its spread in South Asia.'],['Syncretism','The blending of beliefs and practices from different religions.'],['Secular state','A state that does not adopt an official religion. India\'s constitution describes it as secular.']],
+ discuss:'Why do so many sacred sites stand beside rivers or on mountains? Compare them with a sacred landscape you know.'},
+
+{id:'history',tab:'History',kicker:'Through time',title:'Through Time',layer:'relief',labels:['nations','seas'],view:[79,23,44],timeline:true,
+ lead:'From some of the world\'s first farming villages to the birth of new nations in the 20th century, South Asian history moves across this map. Follow the stops in order, or press Play tour.',
+ obj:['Place major civilisations and empires in time and space','Explain how geography shaped where power was centred','Describe the causes and effects of colonial rule and Partition'],
+ prose:['<p>Empires repeatedly rose on the fertile <b>Ganga–Yamuna plain</b>, with its water, farmland and river transport. Invaders and traders entered through north-western passes such as the Khyber or arrived by sea, while the south built its own maritime kingdoms that traded across the Indian Ocean.</p>','<p>European trading companies arrived from 1498, when Vasco da Gama reached Kerala. The British East India Company gradually took control, followed by direct British rule from 1858 to 1947.</p>'],
+ widget:'none',
+ stops:[
+  {n:'Mehrgarh',lon:67.62,lat:29.38,d:8,k:'c. 7000 BCE',t:'One of South Asia\'s earliest farming villages, at the foot of the Bolan Pass. People grew wheat and barley and kept cattle, sheep and goats thousands of years before the Indus cities.'},
+  {n:'Mohenjo-daro',lon:68.14,lat:27.33,d:8,k:'c. 2600–1900 BCE',t:'A great city of the Indus Valley (Harappan) Civilization, with grid streets, brick houses, covered drains and the Great Bath. Its script has still not been deciphered.'},
+  {n:'Kurukshetra',lon:76.85,lat:29.97,d:9,k:'c. 1500–500 BCE',t:'The Vedic period. The Sanskrit hymns of the Rigveda were composed in the north-west, and Vedic culture spread east across the Ganga plain. Kurukshetra is the setting of the great battle of the Mahabharata.'},
+  {n:'Taxila',lon:72.83,lat:33.75,d:8,k:'c. 600 BCE – 500 CE',t:'A city of Gandhara on major trade routes. Persian, Greek, Mauryan and Kushan rulers left their mark, and Gandharan art blended Greek and Buddhist styles.'},
+  {n:'Pataliputra (Patna)',lon:85.14,lat:25.61,d:9,k:'322–185 BCE',t:'Capital of the Maurya Empire, founded by Chandragupta Maurya. His grandson Ashoka renounced war after the bloody conquest of Kalinga and promoted Buddhist ideas in edicts carved on rocks and pillars.'},
+  {n:'Anuradhapura',lon:80.4,lat:8.31,d:8,k:'4th c. BCE – 11th c. CE',t:'Capital of early Sinhalese kingdoms for over a thousand years, with huge stupas and reservoirs (tanks) that stored monsoon rain for rice farming.'},
+  {n:'Nalanda',lon:85.44,lat:25.14,d:8,k:'5th – 12th c. CE',t:'A great Buddhist university founded in the Gupta era (c. 320–550 CE), a classical age of Sanskrit literature, art and science. The mathematician-astronomer Aryabhata worked in this period.'},
+  {n:'Thanjavur',lon:79.13,lat:10.78,d:8,k:'c. 850–1279 CE',t:'Capital of the Chola Empire, whose fleets reached Sri Lanka and Southeast Asia. Rajaraja I completed the Brihadisvara Temple here in 1010.'},
+  {n:'Delhi · Qutb Minar',lon:77.19,lat:28.52,d:8,k:'1206–1526',t:'The Delhi Sultanate brought Turkic and Afghan dynasties, Persian as a court language, and Indo-Islamic architecture such as the Qutb Minar.'},
+  {n:'Hampi',lon:76.46,lat:15.33,d:8,k:'1336–1646',t:'Capital of the Vijayanagara Empire and one of the largest cities in the world around 1500. It was sacked after the Battle of Talikota in 1565.'},
+  {n:'Agra',lon:78.04,lat:27.17,d:8,k:'1526–1857',t:'Babur founded the Mughal Empire after the First Battle of Panipat in 1526. At its height it ruled most of the subcontinent. Shah Jahan built the Taj Mahal here between 1632 and 1653.'},
+  {n:'Plassey',lon:88.25,lat:23.8,d:8,k:'1757',t:'The British East India Company defeated the Nawab of Bengal, beginning its rise from trading company to ruling power.'},
+  {n:'Meerut',lon:77.71,lat:28.98,d:8,k:'1857',t:'Indian soldiers (sepoys) of the Company\'s army rebelled here, starting a widespread uprising. In 1858 the British Crown took direct control, beginning the British Raj.'},
+  {n:'Wagah–Attari',lon:74.57,lat:31.6,d:8,k:'1947',t:'British India was partitioned into India and Pakistan, with East Pakistan in Bengal. Around 15 million people were uprooted and estimates of the dead range from several hundred thousand to two million. This crossing between Lahore and Amritsar became a symbol of the divide.'},
+  {n:'Colombo',lon:79.86,lat:6.93,d:8,k:'1948',t:'Ceylon gained independence from Britain on 4 February 1948 and became the Republic of Sri Lanka in 1972.'},
+  {n:'Dhaka',lon:90.41,lat:23.81,d:8,k:'1971',t:'After a war of independence, East Pakistan became Bangladesh. Pakistani forces surrendered in Dhaka on 16 December 1971.'},
+  {n:'Kathmandu',lon:85.32,lat:27.72,d:8,k:'2008',t:'Nepal, never colonised, abolished its monarchy and became a federal democratic republic. Bhutan, also never colonised, held its first parliamentary elections the same year.'}
+ ],
+ terms:[['Civilization','A complex society with cities, specialised work, government and often writing.'],['Empire','A large state ruling many peoples and territories from one centre.'],['Colonialism','Control of one territory and its people by a foreign power.'],['Partition','The 1947 division of British India into India and Pakistan.']],
+ discuss:'Many capitals in this timeline stand on the Ganga–Yamuna plain. What geographic advantages did the plain give rulers, and what made it hard to defend?'},
+
+{id:'people',tab:'People',kicker:'Population and cities',title:'People & Cities',layer:'nations',labels:['nations'],view:[82,21,42],columns:true,
+ lead:'About 2 billion people live in South Asia. India passed China as the world\'s most populous country in 2023, and the region\'s cities are among the largest and fastest-growing on Earth.',
+ obj:['Describe where population is dense or sparse, and why','Compare population density between countries','Explain push and pull factors behind urban growth and migration'],
+ prose:['<p>Population follows water and soil. Densities are highest on the Ganga plain and in the Bengal delta and lowest in deserts and high mountains. <b>Bangladesh</b>, with about 175 million people in an area about the size of the US state of Iowa, is the most densely populated large country in the world.</p>','<p>In a 2025 report using a new, consistent definition of cities, the UN ranked <b>Dhaka</b> the world\'s second-largest urban area, with New Delhi fifth and Kolkata ninth. The gold columns on the map show their size.</p>','<p>Millions of South Asians work abroad, especially in the Gulf states. The money they send home, called <b>remittances</b>, is a large share of the economy in Nepal, Pakistan, Bangladesh and Sri Lanka.</p>'],
+ widget:'density',
+ stops:[
+  {n:'Dhaka',lon:90.41,lat:23.81,d:9,k:'36.6 million · UN 2025',t:'Ranked the world\'s second-largest urban area. Migrants arrive from rural areas hit by river erosion and floods, and the garment industry is a major employer.'},
+  {n:'New Delhi',lon:77.21,lat:28.61,d:9,k:'30.2 million · UN 2025',t:'The capital region sprawls into neighbouring states. Ranked fifth in the world by the same UN report.'},
+  {n:'Kolkata',lon:88.36,lat:22.57,d:9,k:'22.5 million · UN 2025',t:'Capital of British India until 1911 and a centre of Bengali literature, politics and film. Ranked ninth in the world.'},
+  {n:'Mumbai · Dharavi',lon:72.85,lat:19.04,d:8,k:'Financial capital',t:'India\'s financial centre and a major port. Dharavi, one of Asia\'s largest informal settlements, is also a busy hub of small factories and recycling.'},
+  {n:'Karachi',lon:67.01,lat:24.86,d:8,k:'Pakistan\'s largest city',t:'Pakistan\'s main port and economic engine, and its capital until the 1960s. It grew rapidly after 1947 as migrants arrived from India.'},
+  {n:'Lahore',lon:74.34,lat:31.55,d:8,k:'Pakistan\'s second city',t:'A historic cultural capital with Mughal monuments such as the Badshahi Mosque and Lahore Fort.'},
+  {n:'Bengaluru',lon:77.59,lat:12.97,d:8,k:'Technology hub',t:'India\'s best-known IT centre. Rapid growth has strained its lakes, water supply and roads.'},
+  {n:'Kathmandu Valley',lon:85.32,lat:27.7,d:7,k:'Mountain city',t:'The valley holds a large share of Nepal\'s urban population. Remittances from Nepalis working abroad equal roughly a quarter of the country\'s GDP.'},
+  {n:'Greater Malé',lon:73.51,lat:4.18,d:7,k:'Island density',t:'More than a third of Maldivians live in the Greater Malé area. Hulhumalé, a new town on land reclaimed from the lagoon, was built about 2 m above sea level.'}
+ ],
+ terms:[['Population density','Number of people per square kilometre.'],['Urbanization','The growth in the share of people living in towns and cities.'],['Megacity','An urban area with more than 10 million people.'],['Remittances','Money sent home by migrants working elsewhere.']],
+ discuss:'Rural migrants keep arriving in Dhaka despite crowding and flooding. List the push factors and the pull factors, and suggest one policy that might help.'},
+
+{id:'environment',tab:'Environment',kicker:'Environmental issues',title:'Environment at Risk',layer:'relief',labels:['nations','rivers'],view:[80,22,42],
+ lead:'South Asia is among the regions most exposed to climate change. Melting ice, extreme heat, floods, cyclones and rising seas meet dense populations and heavy demand for water.',
+ obj:['Identify major environmental hazards and where they occur','Explain links between climate, water and people','Evaluate local and international responses'],
+ prose:['<p>The Hindu Kush Himalaya hold more ice than anywhere outside the polar regions, which is why the area is called the <b>Third Pole</b>. Its rivers support well over a billion people downstream. A 2023 ICIMOD assessment warned that its glaciers could lose up to 80% of their volume this century if emissions stay high.</p>','<p>Responses are local as well as global: the Chipko tree-huggers of the 1970s, community forestry in Nepal, tiger and rhino recovery, and the cyclone shelters and early warnings in Bangladesh and Odisha that have sharply reduced deaths since the 1970s.</p>'],
+ widget:'env',
+ stops:[
+  {n:'Gangotri Glacier',lon:79.08,lat:30.92,d:7,tag:'Ice and water',k:'Retreating ice',t:'Like most Himalayan glaciers, Gangotri has retreated for decades. Shrinking ice threatens dry-season river flow in the long term and leaves behind new glacial lakes.'},
+  {n:'South Lhonak Lake, Sikkim',lon:88.2,lat:27.92,d:7,tag:'Ice and water',k:'Glacial lake outburst · Oct 2023',t:'A glacial lake burst through its moraine dam, and the flood down the Teesta River destroyed the Teesta III dam and killed dozens of people. Warming is enlarging such lakes across the Himalaya.'},
+  {n:'Joshimath',lon:79.56,lat:30.56,d:7,tag:'Ice and water',k:'Land subsidence · 2023',t:'Hundreds of buildings cracked as this hillside town sank. Experts pointed to unstable slopes, poor drainage and heavy construction in a fragile mountain zone.'},
+  {n:'Kishanganga, Kashmir',lon:74.65,lat:34.65,d:8,tag:'Ice and water',k:'Shared rivers',t:'The 1960 Indus Waters Treaty, brokered by the World Bank, gave the eastern rivers (Ravi, Beas, Sutlej) to India and the western rivers (Indus, Jhelum, Chenab) mainly to Pakistan. In April 2025 India declared the treaty "in abeyance". In August 2026 a Court of Arbitration in The Hague ruled that the treaty remains in force; India rejects the court\'s authority.'},
+  {n:'Punjab',lon:75.84,lat:30.25,d:9,tag:'Ice and water',k:'Falling water tables',t:'Pumping for irrigated rice and wheat has drawn groundwater down faster than rain can refill it. Satellite gravity measurements show some of the fastest groundwater losses on Earth across north-west India.'},
+  {n:'Central Bangladesh',lon:90.0,lat:23.4,d:9,tag:'Ice and water',k:'Arsenic in wells',t:'Millions of tube wells dug from the 1970s to avoid polluted surface water turned out to tap arsenic-rich groundwater. The WHO called it the largest mass poisoning of a population in history.'},
+  {n:'Delhi',lon:77.21,lat:28.61,d:9,tag:'Air and heat',k:'Winter smog',t:'In late autumn and winter, cool still air traps pollution from traffic, industry, dust and smoke from crop-stubble burning in Punjab and Haryana. Delhi regularly ranks among the most polluted capitals in the world.'},
+  {n:'Jacobabad',lon:68.44,lat:28.28,d:9,tag:'Air and heat',k:'Deadly heat',t:'Heat waves are growing hotter and longer. Jacobabad\'s summer heat and humidity approach the limits of human survivability.'},
+  {n:'Dadu, Sindh',lon:67.77,lat:26.73,d:9,tag:'Floods and coasts',k:'Floods · 2022',t:'Record monsoon rain flooded about a third of Pakistan in 2022, affecting some 33 million people and killing about 1,700. Sindh was among the hardest-hit provinces.'},
+  {n:'Sundarbans',lon:89.2,lat:21.95,d:8,tag:'Floods and coasts',k:'Mangroves and tigers',t:'The world\'s largest mangrove forest, shared by India and Bangladesh, shields the coast from cyclone surges and shelters Bengal tigers. Rising seas and saltier water threaten it.'},
+  {n:'Bhola Island',lon:90.65,lat:22.25,d:8,tag:'Floods and coasts',k:'Cyclone preparedness',t:'The 1970 Bhola cyclone killed an estimated 300,000 or more people. Thousands of shelters and a volunteer warning network built since then have cut deaths dramatically.'},
+  {n:'Maldives',lon:73.51,lat:4.18,d:8,tag:'Floods and coasts',k:'Sea-level rise',t:'With about 80% of its land less than 1 m above sea level, the Maldives is among the nations most threatened by rising seas. In 2009 its cabinet held an underwater meeting to draw attention to the danger.'},
+  {n:'Silent Valley',lon:76.43,lat:11.08,d:8,tag:'Forests and wildlife',k:'Western Ghats rainforest',t:'A public campaign in the late 1970s and early 1980s stopped a dam that would have flooded this rainforest. It became a national park in 1984.'},
+  {n:'Reni, Uttarakhand',lon:79.77,lat:30.52,d:7,tag:'Forests and wildlife',k:'Chipko · 1974',t:'Village women led by Gaura Devi hugged trees to stop logging, a landmark of the Chipko movement and of community-led conservation.'},
+  {n:'Jim Corbett National Park',lon:78.77,lat:29.53,d:8,tag:'Forests and wildlife',k:'Project Tiger · 1973',t:'India launched Project Tiger here in 1973. India\'s 2022 estimate of about 3,680 wild tigers is roughly three-quarters of the world total.'},
+  {n:'Chitwan National Park',lon:84.35,lat:27.53,d:8,tag:'Forests and wildlife',k:'Rhino recovery',t:'Protection and community anti-poaching work helped Nepal\'s greater one-horned rhinos increase to 752 in the 2021 count.'}
+ ],
+ terms:[['Third Pole','The Hindu Kush Himalaya and Tibetan Plateau, the largest store of ice outside the poles.'],['GLOF','Glacial lake outburst flood: a sudden release of water from a lake dammed by ice or moraine.'],['Groundwater depletion','Pumping water from aquifers faster than it is recharged.'],['Adaptation','Changes that reduce harm from climate impacts, such as cyclone shelters or heat-action plans.']],
+ discuss:'Rivers cross borders but water policies stop at them. Choose one shared river and propose how the countries along it could manage it together.'},
+
+{id:'quiz',tab:'Quiz',kicker:'Check your understanding',title:'Quiz',layer:'relief',labels:['nations','seas'],view:[80,20,44],quiz:true,
+ lead:'Twelve questions covering every lesson. After each answer the map flies to the place in question.',obj:[],prose:[],widget:'quiz',stops:[],terms:[],discuss:''}
+];
+const QUIZ=[
+ {q:'Which mountain range formed where the Indian Plate meets the Eurasian Plate?',o:['Western Ghats','Himalaya','Aravalli','Eastern Ghats'],a:1,ex:'The collision that began about 50 million years ago is still lifting the Himalaya.',lon:86.925,lat:27.988,d:9},
+ {q:'Which country is made entirely of coral atolls and is among the lowest-lying nations on Earth?',o:['Sri Lanka','Bangladesh','Maldives','Bhutan'],a:2,ex:'About 80% of the Maldives lies less than 1 m above sea level.',lon:73.4,lat:4.6,d:10},
+ {q:'Around when does the southwest monsoon normally reach Kerala?',o:['Early March','1 June','Mid-August','December'],a:1,ex:'IMD\'s normal onset date over Kerala is about 1 June.',lon:76.27,lat:9.93,d:10},
+ {q:'Why is Pune, east of the Western Ghats, much drier than Mumbai?',o:['It is at a higher latitude','It lies in a rain shadow','It is closer to the Thar Desert','It gets the northeast monsoon instead'],a:1,ex:'Air descends and warms after crossing the Ghats, so it holds its moisture.',lon:73.86,lat:18.52,d:9},
+ {q:'Chennai gets most of its rain in October to December because of…',o:['the southwest monsoon','western disturbances','the northeast monsoon','snowmelt'],a:2,ex:'Northeast winds pick up moisture over the Bay of Bengal before reaching Tamil Nadu.',lon:80.27,lat:13.08,d:10},
+ {q:'Which language family dominates southern India?',o:['Indo-Aryan','Dravidian','Tibeto-Burman','Austroasiatic'],a:1,ex:'Tamil, Telugu, Kannada and Malayalam are Dravidian languages.',lon:78,lat:13,d:16},
+ {q:'Lumbini, the birthplace of the Buddha, is in which present-day country?',o:['India','Sri Lanka','Nepal','Bhutan'],a:2,ex:'Lumbini lies in Nepal\'s Terai lowlands near the Indian border.',lon:83.28,lat:27.47,d:9},
+ {q:'Which Indus Valley city, in today\'s Sindh, is famous for its Great Bath?',o:['Harappa','Mohenjo-daro','Taxila','Lothal'],a:1,ex:'Mohenjo-daro flourished about 2600–1900 BCE beside the Indus.',lon:68.14,lat:27.33,d:9},
+ {q:'In which year was British India partitioned into India and Pakistan?',o:['1919','1947','1958','1971'],a:1,ex:'Partition took effect in August 1947.',lon:74.57,lat:31.6,d:10},
+ {q:'Which country gained independence in 1971?',o:['Sri Lanka','Bangladesh','Maldives','Pakistan'],a:1,ex:'East Pakistan became Bangladesh after a war of independence.',lon:90.41,lat:23.81,d:10},
+ {q:'The Sundarbans mangrove forest lies in the delta of which rivers?',o:['Indus and Sutlej','Godavari and Krishna','Ganges and Brahmaputra','Narmada and Tapi'],a:2,ex:'It is the world\'s largest mangrove forest, shared by India and Bangladesh.',lon:89.2,lat:21.95,d:10},
+ {q:'Which Indian state contains some of the wettest places on Earth?',o:['Rajasthan','Meghalaya','Punjab','Gujarat'],a:1,ex:'Mawsynram and Cherrapunji receive around 11–12 m of rain a year.',lon:91.58,lat:25.3,d:9}
+];
+
+/* ================= FIELDS ================= */
+const N=GW*GH;
+const CT=new Uint8Array(N), E=new Float32Array(N), RN=new Float32Array(N), LG=new Uint8Array(N), DS=new Float32Array(N), SH=new Float32Array(N), H=new Float32Array(N);
+const cellLon=i=>LON0+(i+.5)*DLON, cellLat=j=>LAT1-(j+.5)*DLAT;
+const tick=()=>new Promise(r=>setTimeout(r,0));
+async function buildFields(prog){
+  for(let j=0;j<GH;j++){const lat=cellLat(j);for(let i=0;i<GW;i++){CT[j*GW+i]=classify(cellLon(i),lat);} if(j%80===0){prog(.05+.15*j/GH);await tick();}}
+  // distance transform (cells): land->sea distance and sea->land distance
+  const INF=1e9, A=new Float32Array(N), B=new Float32Array(N);
+  for(let k=0;k<N;k++){A[k]=CT[k]?INF:0;B[k]=CT[k]?0:INF;}
+  const dt=(D)=>{const s=1.4142;
+    for(let j=0;j<GH;j++)for(let i=0;i<GW;i++){const k=j*GW+i;let v=D[k];if(i>0)v=Math.min(v,D[k-1]+1);if(j>0){v=Math.min(v,D[k-GW]+1);if(i>0)v=Math.min(v,D[k-GW-1]+s);if(i<GW-1)v=Math.min(v,D[k-GW+1]+s);}D[k]=v;}
+    for(let j=GH-1;j>=0;j--)for(let i=GW-1;i>=0;i--){const k=j*GW+i;let v=D[k];if(i<GW-1)v=Math.min(v,D[k+1]+1);if(j<GH-1){v=Math.min(v,D[k+GW]+1);if(i<GW-1)v=Math.min(v,D[k+GW+1]+s);if(i>0)v=Math.min(v,D[k+GW-1]+s);}D[k]=v;}};
+  dt(A);dt(B);prog(.25);await tick();
+  for(let k=0;k<N;k++)DS[k]=(CT[k]?A[k]:B[k])*DLAT;
+  for(let j=0;j<GH;j++){const lat=cellLat(j);
+    for(let i=0;i<GW;i++){const k=j*GW+i,c=CT[k];if(!c){E[k]=0;H[k]=-70;continue;}
+      const lon=cellLon(i);let e=elevAt(lon,lat);
+      e=e*sstep(0,.3,DS[k]);
+      if(c===8)e=2;
+      e=Math.max(1.5,e);E[k]=e;H[k]=e;
+      RN[k]=rainAt(lon,lat,c);LG[k]=langAt(lon,lat,c);}
+    if(j%40===0){prog(.25+.6*j/GH);await tick();}}
+  // hillshade (world slope at base exaggeration)
+  const cw=DLON*KX, ch=DLAT, vs=28/111000, L=[-1,1.35,-1];const ll=Math.hypot(L[0],L[1],L[2]);L[0]/=ll;L[1]/=ll;L[2]/=ll;
+  for(let j=0;j<GH;j++)for(let i=0;i<GW;i++){const k=j*GW+i;
+    const e0=H[j*GW+Math.max(0,i-1)],e1=H[j*GW+Math.min(GW-1,i+1)],n0=H[Math.max(0,j-1)*GW+i],n1=H[Math.min(GH-1,j+1)*GW+i];
+    const gx=(Math.max(e1,0)-Math.max(e0,0))*vs/(2*cw), gz=(Math.max(n1,0)-Math.max(n0,0))*vs/(2*ch);
+    const nl=Math.hypot(gx,1,gz);SH[k]=(-gx*L[0]+L[1]-gz*L[2])/nl;}
+  prog(.9);
+}
+function sampleGrid(G,lon,lat){
+  const fx=(lon-LON0)/DLON-.5, fy=(LAT1-lat)/DLAT-.5;
+  const i=clamp(Math.floor(fx),0,GW-2), j=clamp(Math.floor(fy),0,GH-2), tx=clamp(fx-i,0,1), ty=clamp(fy-j,0,1);
+  const a=G[j*GW+i],b=G[j*GW+i+1],c=G[(j+1)*GW+i],d=G[(j+1)*GW+i+1];
+  return lerp(lerp(a,b,tx),lerp(c,d,tx),ty);
+}
+function cellAt(lon,lat){const i=clamp(Math.floor((lon-LON0)/DLON),0,GW-1),j=clamp(Math.floor((LAT1-lat)/DLAT),0,GH-1);return j*GW+i;}
+
+/* ================= COLOR / TEXTURE ================= */
+const hex=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+const RELIEF=[[0,'#5F9455'],[120,'#7EA862'],[350,'#A9B872'],[700,'#C8B985'],[1300,'#B9976B'],[2300,'#987759'],[3500,'#857A70'],[4600,'#A7A39F'],[5500,'#DCDEE3'],[7000,'#FFFFFF']].map(s=>[s[0],hex(s[1])]);
+const RAINR=[[0,'#EAD8A8'],[300,'#DCC07A'],[700,'#B6C76A'],[1200,'#73B36C'],[2000,'#2F9B8A'],[3000,'#2873AE'],[5000,'#3646A8'],[9000,'#6B2C9C']].map(s=>[s[0],hex(s[1])]);
+const NATCOL=[null,'#E9C46A','#86BB8A','#5FAFA3','#DE9470','#C9A3DD','#E7A0AC','#BFAA80','#7FAEE0','#C9CCD3'].map(h=>h?hex(h):null);
+const LANGCOL=['#E7B04F','#C9584F','#6A86C9','#9C76BE','#4FA87C'].map(hex);
+const LANG_NAMES=['Indo-Aryan','Dravidian','Tibeto-Burman','Iranian','Austroasiatic'];
+const SAND=hex('#D9C28E'), OC_S=hex('#9CCBDD'), OC_D=hex('#203F7E');
+function ramp(R,v){if(v<=R[0][0])return R[0][1];for(let i=1;i<R.length;i++){if(v<=R[i][0]){const t=(v-R[i-1][0])/(R[i][0]-R[i-1][0]),a=R[i-1][1],b=R[i][1];return[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}}return R[R.length-1][1];}
+const mixc=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
+const TW=1520;
+const texCanvas=document.createElement('canvas');texCanvas.width=TW;texCanvas.height=Math.round(TW*GH/GW);
+const layerCache={};
+function baseImage(layer){
+  if(layerCache[layer])return layerCache[layer];
+  const cv=document.createElement('canvas');cv.width=GW;cv.height=GH;const cx=cv.getContext('2d');const im=cx.createImageData(GW,GH);const px=im.data;
+  const Ly=1.35/Math.hypot(1,1.35,1);
+  for(let k=0;k<N;k++){const c=CT[k];let col;
+    if(!c){const t=Math.sqrt(clamp(DS[k]/2.4,0,1));col=mixc(OC_S,OC_D,t);}
+    else{
+      if(layer==='relief'){col=ramp(RELIEF,E[k]);const r=RN[k];if(r<520&&E[k]<3400)col=mixc(col,SAND,clamp((520-r)/400,0,.7));}
+      else if(layer==='nations')col=NATCOL[c];
+      else if(layer==='rain')col=ramp(RAINR,RN[k]);
+      else col=LANGCOL[LG[k]];
+      const strength=layer==='relief'?1.25:.95;
+      const f=clamp(1+(SH[k]-Ly)*strength,.5,1.3);col=[col[0]*f,col[1]*f,col[2]*f];
+    }
+    const o=k*4;px[o]=col[0];px[o+1]=col[1];px[o+2]=col[2];px[o+3]=255;}
+  cx.putImageData(im,0,0);layerCache[layer]=cv;return cv;
+}
+let borderCanvas=null;
+function bordersImage(){
+  if(borderCanvas)return borderCanvas;
+  const cv=document.createElement('canvas');cv.width=GW;cv.height=GH;const cx=cv.getContext('2d');const im=cx.createImageData(GW,GH);const px=im.data;
+  for(let j=0;j<GH-1;j++)for(let i=0;i<GW-1;i++){const k=j*GW+i,c=CT[k];if(!c)continue;const r=CT[k+1],d=CT[k+GW];
+    if((r&&r!==c)||(d&&d!==c)){const o=k*4;px[o]=28;px[o+1]=26;px[o+2]=48;px[o+3]=235;}}
+  cx.putImageData(im,0,0);borderCanvas=cv;return cv;
+}
+const LOC=[[74.65,32.75],[74.3,32.95],[74.0,33.3],[74.05,33.8],[73.95,34.15],[74.35,34.5],[74.9,34.7],[75.7,34.55],[76.4,34.8],[77.05,35.1],[76.8,35.6],[77.8,35.5]];
+const LAC=[[77.8,35.5],[78.1,35.0],[78.3,34.6],[78.75,34.1],[78.9,33.5],[79.4,32.9],[79.2,32.5],[78.75,31.83]];
+function drawBorders(cx){
+  const key=p=>p[0]+','+p[1];const disp=new Set(LOC.concat(LAC).map(key));
+  const INs=IN.slice(0,IN.findIndex(p=>p[0]===92.6&&p[1]===22.0)+1);
+  const segs=[];
+  const addPoly=(P,closed)=>{const n=P.length;for(let i=0;i<(closed?n:n-1);i++){const a=P[i],b=P[(i+1)%n];if(disp.has(key(a))&&disp.has(key(b)))continue;segs.push([a,b]);}};
+  addPoly(PK,true);addPoly(AF,true);addPoly(NP,true);addPoly(BT,true);addPoly(BD,true);addPoly(INs,false);
+  cx.save();cx.beginPath();MAIN.forEach((p,i)=>i?cx.lineTo(tx(p[0]),ty(p[1])):cx.moveTo(tx(p[0]),ty(p[1])));cx.closePath();cx.clip();
+  const path=()=>{cx.beginPath();for(const s of segs){cx.moveTo(tx(s[0][0]),ty(s[0][1]));cx.lineTo(tx(s[1][0]),ty(s[1][1]));}};
+  cx.lineJoin='round';cx.lineCap='round';
+  path();cx.strokeStyle='rgba(255,255,255,.55)';cx.lineWidth=3.6;cx.stroke();
+  path();cx.strokeStyle='rgba(30,26,50,.9)';cx.lineWidth=1.6;cx.stroke();
+  cx.setLineDash([5,4]);
+  for(const L of [LOC,LAC]){cx.beginPath();L.forEach((p,i)=>i?cx.lineTo(tx(p[0]),ty(p[1])):cx.moveTo(tx(p[0]),ty(p[1])));cx.strokeStyle='rgba(120,20,40,.9)';cx.lineWidth=1.6;cx.stroke();}
+  cx.restore();
+}
+const tx=(lon)=>(lon-LON0)/(LON1-LON0)*texCanvas.width, ty=(lat)=>(LAT1-lat)/(LAT1-LAT0)*texCanvas.height;
+function smoothPath(cx,pts){cx.beginPath();cx.moveTo(tx(pts[0][0]),ty(pts[0][1]));for(let i=1;i<pts.length-1;i++){const xc=(tx(pts[i][0])+tx(pts[i+1][0]))/2,yc=(ty(pts[i][1])+ty(pts[i+1][1]))/2;cx.quadraticCurveTo(tx(pts[i][0]),ty(pts[i][1]),xc,yc);}const l=pts[pts.length-1];cx.lineTo(tx(l[0]),ty(l[1]));}
+function paintTexture(state){
+  const cx=texCanvas.getContext('2d');cx.imageSmoothingEnabled=true;cx.imageSmoothingQuality='high';
+  cx.drawImage(baseImage(state.layer),0,0,texCanvas.width,texCanvas.height);
+  // coastline
+  cx.lineJoin='round';cx.lineCap='round';
+  cx.strokeStyle='rgba(18,38,84,.55)';cx.lineWidth=1.3;
+  cx.beginPath();const cs=MAIN.slice(0,-3);cx.moveTo(tx(cs[0][0]),ty(cs[0][1]));for(const p of cs)cx.lineTo(tx(p[0]),ty(p[1]));cx.stroke();
+  cx.beginPath();SRI.forEach((p,i)=>i?cx.lineTo(tx(p[0]),ty(p[1])):cx.moveTo(tx(p[0]),ty(p[1])));cx.closePath();cx.stroke();
+  cx.fillStyle='#F1E6C8';cx.strokeStyle='rgba(18,38,84,.7)';cx.lineWidth=1;
+  for(const d of MV_DOTS.concat(LK_DOTS)){cx.beginPath();cx.arc(tx(d[0]),ty(d[1]),3.2,0,7);cx.fill();cx.stroke();}
+  if(state.borders)drawBorders(cx);
+  if(state.rivers){
+    for(const r of RIVERS){smoothPath(cx,r.p);cx.strokeStyle='rgba(255,255,255,.55)';cx.lineWidth=r.w+2;cx.stroke();cx.strokeStyle=state.layer==='rain'?'#13306E':'#2560B3';cx.lineWidth=r.w;cx.stroke();}
+  }
+}
+
+/* ================= THREE SCENE ================= */
+const mapEl=document.getElementById('map'), labelsEl=document.getElementById('labels');
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const W3=(lon,lat,y)=>new THREE.Vector3((lon-79)*KX,y,-(lat-19.5));
+let EXAG=28;const VS0=28/111000;
+const yScale=()=>EXAG/28;
+function terrainY(lon,lat){return Math.max(sampleGrid(H,lon,lat),-70)*VS0*yScale();}
+let renderer,scene,camera,controls,terrain,slab,windObj,columns,transect,texture;
+const state={layer:'relief',labels:true,rivers:true,borders:true,season:'summer',lesson:0,stop:-1,windsOn:true};
+
+function initScene(){
+  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  mapEl.insertBefore(renderer.domElement,labelsEl);
+  scene=new THREE.Scene();
+  camera=new THREE.PerspectiveCamera(38,1,.1,400);
+  controls=new THREE.OrbitControls(camera,renderer.domElement);
+  controls.enableDamping=true;controls.dampingFactor=.08;controls.maxPolarAngle=1.38;controls.minDistance=3;controls.maxDistance=90;controls.screenSpacePanning=false;
+  scene.add(new THREE.HemisphereLight(0xffffff,0x3b4466,.75));
+  const sun=new THREE.DirectionalLight(0xffffff,.55);sun.position.set(-20,30,-12);scene.add(sun);
+  const Wd=38*KX,Dd=35,SX=380,SZ=350;
+  const geo=new THREE.PlaneGeometry(Wd,Dd,SX,SZ);geo.rotateX(-Math.PI/2);
+  const pos=geo.attributes.position;
+  for(let iz=0;iz<=SZ;iz++){const lat=LAT1-iz/SZ*(LAT1-LAT0);for(let ix=0;ix<=SX;ix++){const lon=LON0+ix/SX*(LON1-LON0);pos.setY(iz*(SX+1)+ix,Math.max(sampleGrid(H,lon,lat),-70)*VS0);}}
+  geo.computeVertexNormals();
+  texture=new THREE.CanvasTexture(texCanvas);texture.encoding=THREE.sRGBEncoding;texture.anisotropy=renderer.capabilities.getMaxAnisotropy();
+  terrain=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({map:texture,roughness:.95,metalness:0}));
+  terrain.position.set((79-79)*KX,0,0);
+  // mesh centre is lon 79, lat 19.5 by construction
+  scene.add(terrain);
+  slab=new THREE.Mesh(new THREE.BoxGeometry(Wd,.6,Dd),new THREE.MeshStandardMaterial({color:0xC7BFAA,roughness:1}));slab.position.y=-.36;scene.add(slab);
+  syncThemeColors();
+  // transect line
+  const tp=[];for(let lat=8.3;lat<=35.8;lat+=.05)tp.push(W3(78,lat,0));
+  transect=new THREE.Line(new THREE.BufferGeometry().setFromPoints(tp),new THREE.LineBasicMaterial({color:0xB01E5A}));transect.visible=false;scene.add(transect);updateTransect();
+  // population columns
+  columns=new THREE.Group();
+  [[90.41,23.81,36.6],[77.21,28.61,30.2],[88.36,22.57,22.5]].forEach(c=>{const h=c[2]/36.6*4.2;const m=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,h,24),new THREE.MeshStandardMaterial({color:0xE0A22A,roughness:.5,emissive:0x2a1a00}));m.userData={lon:c[0],lat:c[1],h};columns.add(m);});
+  columns.visible=false;scene.add(columns);updateColumns();
+  initWinds();
+  window.addEventListener('resize',resize);if(window.ResizeObserver)new ResizeObserver(resize).observe(mapEl);
+  resize();
+  controls.addEventListener('start',()=>{fly=null;});
+  renderer.domElement.addEventListener('pointermove',onMove);
+  renderer.domElement.addEventListener('pointerleave',()=>{hover=null;renderReadout();});
+}
+function syncThemeColors(){const cs=getComputedStyle(document.documentElement);const s=cs.getPropertyValue('--slab').trim();if(slab&&s)slab.material.color.set(s);}
+function updateTransect(){const p=transect.geometry.attributes.position;for(let i=0;i<p.count;i++){const lat=8.3+i*.05;p.setY(i,Math.max(terrainY(78,lat),0)+.04);}p.needsUpdate=true;}
+function updateColumns(){columns.children.forEach(m=>{const u=m.userData;const y=terrainY(u.lon,u.lat);m.position.copy(W3(u.lon,u.lat,y+u.h/2));});}
+function resize(){const w=mapEl.clientWidth,h=mapEl.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+
+/* winds */
+const WIND={summer:[[65,8,1,.3],[70,12,.9,.5],[66,18,.8,.6],[72,20,.6,.8],[76,6,1,.2],[85,6,.8,.4],[88,14,.4,.9],[84,17,.4,.9],[90,19,.2,1],[89,23,-.1,1],[87,25.5,-.9,.3],[82,26.5,-1,.15],[77,28,-.9,.2],[73,29,-.4,.3],[92,24,.3,1],[94,26.5,-.3,.4],[68,25,.5,.6],[96,15,.6,.8],[80,12,.9,.4],[62,22,.7,.5]],
+ winter:[[73,30,.5,-.4],[77,28,.8,-.25],[82,26.5,.9,-.3],[87,25,.6,-.7],[90,21,-.4,-.9],[86,16,-.7,-.7],[82,12,-.9,-.6],[78,9,-.9,-.4],[70,15,-.8,-.5],[66,20,-.6,-.6],[68,26,-.2,-.8],[85,6,-1,-.3],[72,6,-1,-.3],[94,20,-.6,-.8],[93,26,-.6,-.6],[62,28,.1,-.6]]};
+function windVec(lon,lat){const A=WIND[state.season];let sx=0,sy=0,sw=0;for(const a of A){const dx=lon-a[0],dy=lat-a[1],w=1/(dx*dx+dy*dy+1);const w2=w*w;sx+=a[2]*w2;sy+=a[3]*w2;sw+=w2;}const x=sx/sw,y=sy/sw,l=Math.hypot(x,y)||1;return[x/l,y/l];}
+const NW=900;let wp=[];
+function spawn(p){p.lon=61+Math.random()*36;p.lat=2.5+Math.random()*30;p.age=Math.random()*120;p.life=90+Math.random()*90;}
+function initWinds(){
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(NW*6),3));g.setAttribute('color',new THREE.BufferAttribute(new Float32Array(NW*6),3));
+  windObj=new THREE.LineSegments(g,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.9}));windObj.visible=false;windObj.frustumCulled=false;scene.add(windObj);
+  for(let i=0;i<NW;i++){const p={};spawn(p);wp.push(p);}
+}
+function stepWinds(dt){
+  const pos=windObj.geometry.attributes.position.array,col=windObj.geometry.attributes.color.array;
+  const head=state.season==='summer'?[1,1,1]:[1,.93,.78], tail=state.season==='summer'?[.25,.55,.95]:[.75,.55,.2];
+  const sp=reduceMotion?0:2.2*dt;
+  for(let i=0;i<NW;i++){const p=wp[i];const v=windVec(p.lon,p.lat);p.lon+=v[0]*sp/KX;p.lat+=v[1]*sp;p.age+=reduceMotion?0:dt*60;
+    let dead=p.age>p.life||p.lon<60.2||p.lon>97.8||p.lat<2.2||p.lat>36.5;
+    if(!dead&&p.lon>74&&p.lat>crestLat(p.lon)+.2)dead=true;
+    if(dead){spawn(p);p.age=0;}
+    const y=Math.max(terrainY(p.lon,p.lat),0)+.35;
+    const a=W3(p.lon,p.lat,y),b=W3(p.lon-v[0]*.55/KX,p.lat-v[1]*.55,y);
+    const o=i*6;pos[o]=a.x;pos[o+1]=a.y;pos[o+2]=a.z;pos[o+3]=b.x;pos[o+4]=b.y;pos[o+5]=b.z;
+    const f=Math.sin(Math.PI*clamp(p.age/p.life,0,1));
+    col[o]=head[0]*f;col[o+1]=head[1]*f;col[o+2]=head[2]*f;col[o+3]=tail[0]*f*.4;col[o+4]=tail[1]*f*.4;col[o+5]=tail[2]*f*.4;}
+  windObj.geometry.attributes.position.needsUpdate=true;windObj.geometry.attributes.color.needsUpdate=true;
+}
+
+/* camera flight */
+let fly=null;
+function viewFor(lon,lat,dist,polar){const y=Math.max(terrainY(lon,lat),0)*.7;const tgt=W3(lon,lat,y);const az=controls?controls.getAzimuthalAngle():0;const pol=polar||.9;
+  const off=new THREE.Vector3(dist*Math.sin(pol)*Math.sin(az),dist*Math.cos(pol),dist*Math.sin(pol)*Math.cos(az));return{tgt,pos:tgt.clone().add(off)};}
+function flyTo(lon,lat,dist,polar){
+  if(!ready)return;
+  const v=viewFor(lon,lat,dist,polar);
+  if(reduceMotion||!camera){camera.position.copy(v.pos);controls.target.copy(v.tgt);controls.update();return;}
+  fly={t0:performance.now(),dur:1500,fromT:controls.target.clone(),fromP:camera.position.clone(),toT:v.tgt,toP:v.pos,lift:camera.position.distanceTo(v.pos)*.18};
+}
+function homeView(){const L=LESSONS[state.lesson];const v=L.view;const asp=camera.aspect||1.4;const d=v[2]*(asp<1.2?1.2/asp*0.74:1);flyTo(v[0],v[1],d,.82);}
+
+/* labels & pins */
+let labelEls=[],pinEls=[],popEls=[];
+function buildBaseLabels(){labelsEl.innerHTML='';labelEls=BASE_LABELS.map(L=>{const el=document.createElement('div');el.className='lbl '+L[0]+(L[4]?' '+L[4]:'');el.textContent=L[1];labelsEl.appendChild(el);return{el,g:L[0],lon:L[2],lat:L[3]};});
+  popEls=[['Dhaka 36.6 M',90.41,23.81,36.6],['New Delhi 30.2 M',77.21,28.61,30.2],['Kolkata 22.5 M',88.36,22.57,22.5]].map(p=>{const el=document.createElement('div');el.className='lbl pop';el.textContent=p[0];el.hidden=true;labelsEl.appendChild(el);return{el,lon:p[1],lat:p[2],h:p[3]/36.6*4.2};});}
+function buildPins(){pinEls.forEach(p=>p.el.remove());pinEls=[];const L=LESSONS[state.lesson];
+  L.stops.forEach((s,i)=>{const b=document.createElement('button');b.className='pin';b.type='button';b.setAttribute('aria-label',s.n);b.innerHTML='<span class="tip"></span><b></b>';b.querySelector('.tip').textContent=s.n;b.querySelector('b').textContent=L.timeline?s.k.replace(/^c\. /,'').split(/[–\s]/)[0]:(i+1);b.addEventListener('click',()=>openStop(i));labelsEl.appendChild(b);pinEls.push({el:b,lon:s.lon,lat:s.lat});});}
+const _v=new THREE.Vector3();
+function project(lon,lat,yAdd,out){_v.copy(W3(lon,lat,Math.max(terrainY(lon,lat),0)+(yAdd||0)));_v.project(camera);out.x=(_v.x+1)/2*mapEl.clientWidth;out.y=(1-_v.y)/2*mapEl.clientHeight;out.z=_v.z;return out;}
+const P={x:0,y:0,z:0};
+function placeLabels(){
+  const L=LESSONS[state.lesson];const w=mapEl.clientWidth,h=mapEl.clientHeight;
+  for(const l of labelEls){const show=state.labels&&L.labels.includes(l.g);if(!show){if(!l.el.hidden)l.el.hidden=true;continue;}
+    project(l.lon,l.lat,.15,P);const vis=P.z<1&&P.x>-80&&P.x<w+80&&P.y>-30&&P.y<h+30;l.el.hidden=!vis;if(vis)l.el.style.transform='translate('+P.x.toFixed(1)+'px,'+P.y.toFixed(1)+'px) translate(-50%,-50%)';}
+  for(const p of pinEls){project(p.lon,p.lat,.02,P);const vis=P.z<1&&P.x>-40&&P.x<w+40&&P.y>-40&&P.y<h+60;p.el.hidden=!vis;if(vis){p.el.style.transform='translate('+P.x.toFixed(1)+'px,'+P.y.toFixed(1)+'px) translate(-50%,-100%)';p.el.style.zIndex=String(1000-Math.round(P.z*500));}}
+  for(const p of popEls){const show=!!L.columns;if(!show){p.el.hidden=true;continue;}project(p.lon,p.lat,p.h+.3,P);p.el.hidden=P.z>=1;p.el.style.transform='translate('+P.x.toFixed(1)+'px,'+P.y.toFixed(1)+'px) translate(-50%,-100%)';}
+}
+
+/* hover readout */
+let hover=null,mx=0,my=0,moveQueued=false;
+function onMove(e){const r=renderer.domElement.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;if(!moveQueued){moveQueued=true;requestAnimationFrame(()=>{moveQueued=false;pick();});}}
+const ray=new THREE.Raycaster();
+function pick(){
+  const w=mapEl.clientWidth,h=mapEl.clientHeight;ray.setFromCamera({x:mx/w*2-1,y:-(my/h)*2+1},camera);
+  const o=ray.ray.origin,d=ray.ray.direction;let t=0,hit=null,step=.15;
+  for(let k=0;k<1200;k++){const x=o.x+d.x*t,y=o.y+d.y*t,z=o.z+d.z*t;const lon=x/KX+79,lat=-z+19.5;
+    if(lon>=LON0&&lon<=LON1&&lat>=LAT0&&lat<=LAT1){const ty_=Math.max(terrainY(lon,lat),-.02);if(y<=ty_){hit=[lon,lat];break;}}
+    if(y<-1)break;t+=step;}
+  hover=hit;renderReadout();
+}
+function fmtLL(lon,lat){return Math.abs(lat).toFixed(2)+'°'+(lat>=0?'N':'S')+' '+lon.toFixed(2)+'°E';}
+function renderReadout(){
+  const el=document.getElementById('readout');if(!el)return;
+  if(!hover){el.innerHTML='Point at the map to read the model.';return;}
+  const k=cellAt(hover[0],hover[1]);const c=CT[k];
+  if(!c){el.innerHTML='<b>'+fmtLL(hover[0],hover[1])+'</b><br>Sea';return;}
+  let v='';const e=Math.round(sampleGrid(E,hover[0],hover[1]));
+  if(state.layer==='relief')v=e.toLocaleString()+' m';
+  else if(state.layer==='rain')v='≈ '+(Math.round(RN[k]/50)*50).toLocaleString()+' mm a year';
+  else if(state.layer==='lang')v=LANG_NAMES[LG[k]]+' area';
+  else v=C_NAMES[c];
+  el.innerHTML='<b>'+fmtLL(hover[0],hover[1])+'</b><br>'+v+(state.layer!=='relief'?' · '+e.toLocaleString()+' m':'');
+}
+
+/* legend */
+function renderLegend(){
+  const lg=document.getElementById('legend');let h='';
+  const grad=(R,max)=>'linear-gradient(90deg,'+R.map(s=>'rgb('+s[1].map(Math.round).join(',')+') '+(s[0]/max*100).toFixed(1)+'%').join(',')+')';
+  if(state.layer==='relief'){h='<h4>Elevation</h4><div class="bar" style="background:'+grad(RELIEF,7000)+'"></div><div class="ticks"><span>0</span><span>1,750</span><span>3,500</span><span>5,250</span><span>7,000 m</span></div>';}
+  else if(state.layer==='rain'){const R=RAINR.map((s,i)=>[i,s[1]]);h='<h4>Annual rainfall (model)</h4><div class="bar" style="background:'+grad(R,R.length-1)+'"></div><div class="ticks">'+RAINR.filter((s,i)=>i%2===0||i===RAINR.length-1).map(s=>'<span>'+s[0].toLocaleString()+'</span>').join('')+'</div>';}
+  else if(state.layer==='nations'){h='<h4>Countries</h4><div class="sw">'+[1,2,3,7,4,5,6,8,9].map(c=>'<span><i style="background:rgb('+NATCOL[c].join(',')+')"></i>'+(c===9?'Neighbours':C_NAMES[c])+'</span>').join('')+'</div>';}
+  else{h='<h4>Language families</h4><div class="sw">'+LANG_NAMES.map((n,i)=>'<span><i style="background:rgb('+LANGCOL[i].join(',')+')"></i>'+n+'</span>').join('')+'</div>';}
+  lg.innerHTML=h+'<div class="readout" id="readout"></div>';renderReadout();
+}
+function setLayer(l,repaint){state.layer=l;document.querySelectorAll('#layers button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===l)));if(repaint!==false&&texture){paintTexture(state);texture.needsUpdate=true;}renderLegend();}
+
+/* ================= PANEL ================= */
+const panel=document.getElementById('panel'), tabs=document.getElementById('tabs');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function renderTabs(){tabs.innerHTML=LESSONS.map((L,i)=>'<button class="tab" data-i="'+i+'" aria-current="'+(i===state.lesson)+'"><i>'+(i+1)+'</i>'+L.tab+'</button>').join('');}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)go(+b.dataset.i);});
+function nowNote(){const m=new Date().getMonth();
+  if(m>=5&&m<=8)return 'The southwest monsoon is active now. Switch the winds to June–September to see it.';
+  if(m===9||m===10)return 'It is '+new Date().toLocaleString('en',{month:'long'})+'. The southwest monsoon has withdrawn from most of the region, and the northeast monsoon is bringing rain to Tamil Nadu and Sri Lanka.';
+  if(m===11||m<=1)return 'It is winter. Dry winds blow from land to sea, and the northeast monsoon is fading in the far south.';
+  return 'It is the hot, dry pre-monsoon season. Heat builds over the plains ahead of the monsoon\'s arrival in June.';}
+function widgetHTML(L){
+  switch(L.widget){
+  case 'countries':{let tp=0,ta=0;const rows=COUNTRIES.map((c,i)=>{tp+=c[2];ta+=c[3];return '<tr data-c="'+i+'"><td>'+c[0]+'</td><td>'+c[1]+'</td><td class="num">'+(c[2]<1?c[2].toFixed(2):c[2]<100?c[2].toFixed(1):Math.round(c[2]).toLocaleString())+'</td><td class="num">'+c[3].toLocaleString()+'</td></tr>';}).join('');
+    return '<section class="widget"><h2>Eight countries <span>tap a row</span></h2><div class="tblwrap"><table><thead><tr><th>Country</th><th>Capital</th><th class="num">Pop. (M)</th><th class="num">Area (km²)</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td>South Asia</td><td></td><td class="num">'+Math.round(tp).toLocaleString()+'</td><td class="num">'+ta.toLocaleString()+'</td></tr></tfoot></table></div><p class="src">Population: UN World Population Prospects 2024, 2025 estimates. Area includes territory each country administers.</p></section>';}
+  case 'profile':return '<section class="widget"><h2>Cross-section along 78°E <span>red line on the map</span></h2><div class="svgwrap" id="profile"></div><p class="src">From Tamil Nadu (south, left) to the Tibetan Plateau (north, right). Heights from this module\'s simplified terrain model.</p></section>';
+  case 'monsoon':return '<section class="widget"><h2>Seasonal winds <span>animated on the map</span></h2><div class="seg" id="season"><button data-s="summer" aria-pressed="'+(state.season==='summer')+'">June–Sept · Southwest</button><button data-s="winter" aria-pressed="'+(state.season==='winter')+'">Oct–Feb · Northeast</button><button data-s="off" aria-pressed="'+(!state.windsOn)+'">Hide winds</button></div><div class="now"><b>Right now</b>'+esc(nowNote())+'</div><h2 style="margin-top:8px">Two coasts, two monsoons <span>mm per month</span></h2><div class="svgwrap" id="monthly"></div><p class="src">Approximate long-term monthly normals: Mumbai (Santacruz) about 2,400 mm a year; Chennai about 1,200–1,400 mm a year.</p></section>';
+  case 'scripts':{const W=[['पानी','pānī','Hindi · Devanagari','Noto Sans Devanagari'],['پانی','pānī','Urdu · Nastaliq','Noto Nastaliq Urdu'],['জল','jôl','Bengali · Bengali script','Noto Sans Bengali'],['தண்ணீர்','taṇṇīr','Tamil · Tamil script','Noto Sans Tamil'],['నీళ్ళు','nīḷḷu','Telugu · Telugu script','Noto Sans Telugu'],['ನೀರು','nīru','Kannada · Kannada script','Noto Sans Kannada'],['വെള്ളം','veḷḷam','Malayalam · Malayalam script','Noto Sans Malayalam'],['වතුර','watura','Sinhala · Sinhala script','Noto Sans Sinhala'],['ཆུ','chu','Dzongkha · Tibetan script','Noto Serif Tibetan'],['ފެން','fen','Dhivehi · Thaana','Noto Sans Thaana'],['اوبه','obə','Pashto · Perso-Arabic','Noto Naskh Arabic'],['पानी','pānī','Nepali · Devanagari','Noto Sans Devanagari']];
+    return '<section class="widget"><h2>One word, many scripts <span>"water"</span></h2><div class="scripts">'+W.map(w=>'<div><span class="w" style="font-family:\''+w[3]+'\',system-ui,sans-serif">'+w[0]+'</span><span class="tr">'+w[1]+'</span><span class="ln">'+w[2]+'</span></div>').join('')+'</div><p class="src">Notice that Hindi and Nepali share a script, and Hindi and Urdu share a word in different scripts.</p></section>';}
+  case 'religion':{const keys=['Hindu','Muslim','Buddhist','Christian','Sikh','Other'];
+    return '<section class="widget"><h2>Religious make-up <span>% of population</span></h2><div class="keyrow">'+keys.map(k=>'<span><i style="background:'+RCOL[k]+'"></i>'+k+'</span>').join('')+'</div><div class="rel">'+RELIGION.map(r=>{const top=r[1][0];return '<div class="r"><span>'+r[0]+'</span><div class="bars" role="img" aria-label="'+esc(r[0]+': '+r[1].map(x=>x[0]+' '+x[1]+'%').join(', '))+'">'+r[1].map(x=>'<i title="'+x[0]+' '+x[1]+'%" style="width:'+x[1]+'%;background:'+RCOL[x[0]]+'"></i>').join('')+'</div><small>'+Math.round(top[1])+'% '+top[0]+' · '+esc(r[2])+'</small></div>';}).join('')+'</div></section>';}
+  case 'density':{const d=COUNTRIES.map(c=>[c[0],c[2]*1e6/c[3]]).sort((a,b)=>b[1]-a[1]);const mx=d[0][1];
+    return '<section class="widget"><h2>Population density <span>people per km²</span></h2><div class="dens">'+d.map(x=>'<div class="r"><span>'+x[0]+'</span><i style="width:'+(x[1]/mx*100).toFixed(1)+'%"></i><em>'+Math.round(x[1]).toLocaleString()+'</em></div>').join('')+'</div><p class="src">Computed from the country table in Lesson 1. World average is about 60 people per km².</p></section>';}
+  case 'env':return '';
+  case 'quiz':return quizHTML();
+  default:return '';}
+}
+function stopsHTML(L){
+  if(!L.stops.length)return '';
+  const item=(s,i)=>'<li><button class="stop'+(i===state.stop?' on':'')+'" data-s="'+i+'"><span class="n">'+(L.timeline?esc(s.k):String(i+1).padStart(2,'0'))+'</span><span><span class="t">'+esc(s.n)+'</span>'+(L.timeline?'':'<span class="s">'+esc(s.k)+'</span>')+'</span></button></li>';
+  let list;
+  if(L.widget==='env'){const tags=[...new Set(L.stops.map(s=>s.tag))];list=tags.map(t=>'<div class="tagh">'+t+'</div><ol>'+L.stops.map((s,i)=>s.tag===t?item(s,i):'').join('')+'</ol>').join('');}
+  else list='<ol>'+L.stops.map(item).join('')+'</ol>';
+  return '<section class="stops'+(L.timeline?' timeline':'')+'"><h2>Explore on the map <span>'+L.stops.length+' stops</span></h2>'+(L.id==='environment'&&(new Date().getMonth()===9||new Date().getMonth()===10)?'<div class="now" style="margin-bottom:10px"><b>In season now</b>October and November are peak months for crop-stubble burning and smog on the Indo-Gangetic Plain.</div>':'')+list+'<button class="tourbtn" id="tour">'+(tourTimer?'Stop tour':'▶ Play tour')+'</button></section>';
+}
+function renderPanel(){
+  const L=LESSONS[state.lesson],i=state.lesson;
+  let h='<article class="lesson"><p class="eyebrow">Lesson '+(i+1)+' of '+LESSONS.length+' · '+esc(L.kicker)+'</p><h1>'+esc(L.title)+'</h1><p class="lead">'+esc(L.lead)+'</p>';
+  if(L.obj.length)h+='<section class="obj"><h2>You will be able to</h2><ul>'+L.obj.map(o=>'<li>'+esc(o)+'</li>').join('')+'</ul></section>';
+  if(L.prose.length)h+='<div class="prose">'+L.prose.join('')+'</div>';
+  if(L.quiz)h+=widgetHTML(L);
+  else{const w=widgetHTML(L);if(w&&L.widget!=='density'&&L.widget!=='religion')h+=w;h+=stopsHTML(L);if(L.widget==='density'||L.widget==='religion')h+=w;}
+  if(L.terms.length)h+='<section class="terms"><h2>Key terms</h2><dl>'+L.terms.map(t=>'<div><dt>'+esc(t[0])+'</dt><dd>'+esc(t[1])+'</dd></div>').join('')+'</dl></section>';
+  if(L.discuss)h+='<section class="discuss"><h2>Discuss</h2><p>'+esc(L.discuss)+'</p></section>';
+  const pv=LESSONS[i-1],nx=LESSONS[i+1];
+  h+='<nav class="pager">'+(pv?'<button data-go="'+(i-1)+'"><span>← Previous</span><b>'+esc(pv.title)+'</b></button>':'<span></span>')+(nx?'<button data-go="'+(i+1)+'"><span>Next →</span><b>'+esc(nx.title)+'</b></button>':'')+'</nav></article>';
+  panel.innerHTML=h;panel.scrollTop=0;
+  if(L.widget==='profile')drawProfile();
+  if(L.widget==='monsoon')drawMonthly();
+}
+panel.addEventListener('click',e=>{
+  const s=e.target.closest('.stop');if(s){stopTour();openStop(+s.dataset.s);return;}
+  const g=e.target.closest('[data-go]');if(g){go(+g.dataset.go);return;}
+  const r=e.target.closest('tr[data-c]');if(r){const c=COUNTRIES[+r.dataset.c];flyTo(c[4],c[5],c[0]==='India'?30:c[0]==='Maldives'?10:c[0]==='Afghanistan'||c[0]==='Pakistan'?20:12,.85);closeCard();return;}
+  const sb=e.target.closest('#season button');if(sb){const v=sb.dataset.s;if(v==='off')state.windsOn=false;else{state.windsOn=true;state.season=v;}document.querySelectorAll('#season button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.s===v)));return;}
+  if(e.target.closest('#tour')){tourTimer?stopTour():startTour();return;}
+  const qb=e.target.closest('.opts button');if(qb){answer(+qb.dataset.q,+qb.dataset.o);return;}
+  if(e.target.closest('#qreset')){quizAns=QUIZ.map(()=>-1);renderPanel();}
+});
+
+/* charts */
+function drawProfile(){
+  const el=document.getElementById('profile');if(!el)return;
+  const Wd=560,Hd=220,ml=46,mr=12,mt=14,mb=34,iw=Wd-ml-mr,ih=Hd-mt-mb,la0=8.3,la1=35.8,ymax=8000;
+  const X=lat=>ml+(lat-la0)/(la1-la0)*iw, Y=e=>mt+ih-(e/ymax)*ih;
+  let d='M'+X(la0)+','+Y(0);for(let lat=la0;lat<=la1;lat+=.05){d+=' L'+X(lat).toFixed(1)+','+Y(Math.max(0,sampleGrid(H,78,lat))).toFixed(1);}d+=' L'+X(la1)+','+Y(0)+' Z';
+  let g='';[0,2000,4000,6000,8000].forEach(v=>{g+='<line x1="'+ml+'" x2="'+(Wd-mr)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--line)" stroke-width="1"/><text x="'+(ml-6)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono,monospace">'+(v?v/1000+'k':'0')+'</text>';});
+  [10,15,20,25,30,35].forEach(v=>{g+='<text x="'+X(v)+'" y="'+(Hd-14)+'" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono,monospace">'+v+'°N</text>';});
+  const cr=crestLat(78);
+  const marks=[[10.2,'Tamil Nadu'],[16.5,'Deccan'],[22.0,'Satpura'],[23.5,'Vindhya'],[27.3,'Ganga Plain'],[cr,'Great Himalaya'],[33.8,'Tibet']];
+  let m='';marks.forEach((k,i)=>{const e=Math.max(0,sampleGrid(H,78,k[0]));const yy=Y(e)-6-(i%2)*14;m+='<line x1="'+X(k[0])+'" x2="'+X(k[0])+'" y1="'+(Y(e)-3)+'" y2="'+(yy+3)+'" stroke="var(--muted)" stroke-width=".8"/><text x="'+X(k[0])+'" y="'+yy+'" text-anchor="middle" font-size="10.5" fill="var(--ink)" font-family="Bricolage Grotesque,system-ui,sans-serif" font-weight="600">'+k[1]+'</text>';});
+  el.innerHTML='<svg viewBox="0 0 '+Wd+' '+Hd+'" role="img" aria-label="Elevation cross-section along 78 degrees east from 8 to 36 degrees north">'+g+'<path d="'+d+'" fill="var(--turmeric)" fill-opacity=".35" stroke="var(--turmeric)" stroke-width="1.4"/>'+m+'<text x="'+ml+'" y="'+(Hd-1)+'" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono,monospace">metres · south → north</text></svg>';
+}
+function drawMonthly(){
+  const el=document.getElementById('monthly');if(!el)return;
+  const mum=[1,1,0,1,11,527,840,586,341,89,15,4],che=[25,5,4,15,48,55,104,124,118,267,309,139],mo='JFMAMJJASOND';
+  const Wd=560,Hd=200,ml=40,mr=10,mt=24,mb=26,iw=Wd-ml-mr,ih=Hd-mt-mb,ymax=900,bw=iw/12;
+  const Y=v=>mt+ih-v/ymax*ih;let s='';
+  [0,300,600,900].forEach(v=>{s+='<line x1="'+ml+'" x2="'+(Wd-mr)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--line)"/><text x="'+(ml-6)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono,monospace">'+v+'</text>';});
+  for(let i=0;i<12;i++){const x=ml+i*bw;s+='<rect x="'+(x+bw*.14).toFixed(1)+'" y="'+Y(mum[i]).toFixed(1)+'" width="'+(bw*.34).toFixed(1)+'" height="'+(Y(0)-Y(mum[i])).toFixed(1)+'" fill="var(--indigo)" rx="1.5"><title>Mumbai '+mo[i]+': '+mum[i]+' mm</title></rect><rect x="'+(x+bw*.52).toFixed(1)+'" y="'+Y(che[i]).toFixed(1)+'" width="'+(bw*.34).toFixed(1)+'" height="'+(Y(0)-Y(che[i])).toFixed(1)+'" fill="var(--turmeric)" rx="1.5"><title>Chennai '+mo[i]+': '+che[i]+' mm</title></rect><text x="'+(x+bw/2).toFixed(1)+'" y="'+(Hd-8)+'" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono,monospace">'+mo[i]+'</text>';}
+  s+='<rect x="'+ml+'" y="6" width="10" height="10" fill="var(--indigo)" rx="2"/><text x="'+(ml+15)+'" y="15" font-size="11" fill="var(--ink)" font-family="Bricolage Grotesque,system-ui,sans-serif">Mumbai (west coast)</text><rect x="'+(ml+150)+'" y="6" width="10" height="10" fill="var(--turmeric)" rx="2"/><text x="'+(ml+165)+'" y="15" font-size="11" fill="var(--ink)" font-family="Bricolage Grotesque,system-ui,sans-serif">Chennai (east coast)</text>';
+  el.innerHTML='<svg viewBox="0 0 '+Wd+' '+Hd+'" role="img" aria-label="Monthly rainfall: Mumbai peaks in July; Chennai peaks in November">'+s+'</svg>';
+}
+
+/* quiz */
+let quizAns=QUIZ.map(()=>-1);
+function quizHTML(){const done=quizAns.filter(a=>a>=0).length,right=quizAns.filter((a,i)=>a===QUIZ[i].a).length;
+  return '<section class="quiz"><div class="score">Score <b>'+right+' / '+QUIZ.length+'</b><span class="src">'+done+' answered</span>'+(done?'<button class="tourbtn" id="qreset" style="margin:0">Start over</button>':'')+'</div>'+QUIZ.map((q,i)=>{const a=quizAns[i];return '<div class="q"><h3><i>Question '+(i+1)+'</i>'+esc(q.q)+'</h3><div class="opts">'+q.o.map((o,j)=>{let c='';if(a>=0){if(j===q.a)c='ok';else if(j===a)c='no';}return '<button data-q="'+i+'" data-o="'+j+'" class="'+c+'"'+(a>=0?' disabled':'')+'>'+esc(o)+'</button>';}).join('')+'</div>'+(a>=0?'<p class="fb"><b style="color:'+(a===q.a?'var(--good)':'var(--bad)')+'">'+(a===q.a?'Correct.':'Not quite.')+'</b> '+esc(q.ex)+'</p>':'')+'</div>';}).join('')+'</section>';}
+function answer(i,o){if(quizAns[i]>=0)return;quizAns[i]=o;const st=panel.scrollTop;renderPanel();panel.scrollTop=st;const q=QUIZ[i];flyTo(q.lon,q.lat,q.d,.85);
+  const qs=panel.querySelectorAll('.q');if(qs[i]){const b=qs[i].querySelector('button.ok');if(b)b.focus({preventScroll:true});}}
+
+/* stops / card / tour */
+const card=document.getElementById('card');
+function openStop(i){const L=LESSONS[state.lesson],s=L.stops[i];if(!s)return;state.stop=i;flyTo(s.lon,s.lat,s.d||9,.88);
+  card.hidden=false;mapEl.classList.add('carded');
+  const el=s.k?'<div class="k">'+esc(s.k)+'</div>':'';
+  card.innerHTML='<button class="x" aria-label="Close">×</button>'+el+'<h3>'+esc(s.n)+'</h3><div class="co">'+fmtLL(s.lon,s.lat)+' · model elevation '+Math.round(sampleGrid(E,s.lon,s.lat)).toLocaleString()+' m</div><p>'+esc(s.t)+'</p><div class="nav"><span class="ct">'+(i+1)+' of '+L.stops.length+'</span><button data-d="-1"'+(i===0?' disabled':'')+'>‹ Prev</button><button data-d="1"'+(i===L.stops.length-1?' disabled':'')+'>Next ›</button></div>';
+  pinEls.forEach((p,j)=>p.el.classList.toggle('on',j===i));
+  panel.querySelectorAll('.stop').forEach(b=>b.classList.toggle('on',+b.dataset.s===i));
+}
+function closeCard(){card.hidden=true;mapEl.classList.remove('carded');state.stop=-1;pinEls.forEach(p=>p.el.classList.remove('on'));panel.querySelectorAll('.stop').forEach(b=>b.classList.remove('on'));stopTour();}
+card.addEventListener('click',e=>{if(e.target.closest('.x')){closeCard();return;}const b=e.target.closest('[data-d]');if(b){stopTour();openStop(state.stop+(+b.dataset.d));}});
+let tourTimer=null;
+function setTourBtn(){const b=document.getElementById('tour');if(b)b.textContent=tourTimer?'Stop tour':'▶ Play tour';}
+function startTour(){const L=LESSONS[state.lesson];openStop(state.stop>=0&&state.stop<L.stops.length-1?state.stop+1:0);tourTimer=setInterval(()=>{const L2=LESSONS[state.lesson];if(state.stop>=L2.stops.length-1){stopTour();return;}openStop(state.stop+1);},7500);setTourBtn();}
+function stopTour(){if(tourTimer){clearInterval(tourTimer);tourTimer=null;}setTourBtn();}
+
+/* lessons */
+function go(i,fromHash){
+  stopTour();state.lesson=clamp(i,0,LESSONS.length-1);state.stop=-1;const L=LESSONS[state.lesson];
+  renderTabs();const t=tabs.querySelector('[aria-current="true"]');if(t&&t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'nearest'});
+  card.hidden=true;mapEl.classList.remove('carded');
+  if(L.id==='monsoon'){const m=new Date().getMonth();state.season=(m>=9||m<=1)?'winter':'summer';state.windsOn=true;}
+  renderPanel();
+  if(ready){setLayer(L.layer);buildPins();transect.visible=L.widget==='profile';columns.visible=!!L.columns;homeView();}
+  if(!fromHash){try{history.replaceState(null,'','#'+L.id);}catch(_){location.hash=L.id;}}
+}
+window.addEventListener('hashchange',()=>{const i=LESSONS.findIndex(l=>'#'+l.id===location.hash);if(i>=0&&i!==state.lesson)go(i,true);});
+
+/* map controls */
+document.getElementById('layers').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&ready)setLayer(b.dataset.l);});
+document.querySelector('.ctl .row').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!ready)return;if(b.id==='resetView'){closeCard();homeView();return;}
+  const k=b.dataset.t;state[k]=!state[k];b.setAttribute('aria-pressed',String(state[k]));if(k!=='labels'){paintTexture(state);texture.needsUpdate=true;}});
+const ex=document.getElementById('exag'),exo=document.getElementById('exagOut');
+ex.addEventListener('input',()=>{EXAG=+ex.value;exo.textContent=EXAG;if(!ready)return;terrain.scale.y=yScale();updateTransect();updateColumns();});
+const mo=new MutationObserver(syncThemeColors);mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+matchMedia('(prefers-color-scheme: dark)').addEventListener&&matchMedia('(prefers-color-scheme: dark)').addEventListener('change',syncThemeColors);
+
+/* loop */
+let ready=false,last=performance.now();
+function loop(now){
+  requestAnimationFrame(loop);
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(fly){const t=clamp((now-fly.t0)/fly.dur,0,1),k=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+    controls.target.lerpVectors(fly.fromT,fly.toT,k);camera.position.lerpVectors(fly.fromP,fly.toP,k);camera.position.y+=Math.sin(Math.PI*k)*fly.lift;if(t>=1)fly=null;}
+  controls.update();
+  const L=LESSONS[state.lesson];
+  windObj.visible=!!L.winds&&state.windsOn;if(windObj.visible)stepWinds(dt);
+  renderer.render(scene,camera);placeLabels();
+}
+
+/* boot */
+const initial=Math.max(0,LESSONS.findIndex(l=>'#'+l.id===location.hash));
+state.lesson=initial;renderTabs();renderPanel();renderLegend();
+(async function(){
+  const pb=document.getElementById('pbar');const prog=f=>{pb.style.width=(f*100).toFixed(0)+'%';};
+  await tick();await buildFields(prog);
+  if(!window.THREE||!THREE.OrbitControls){document.querySelector('#loader div').textContent='The 3D library could not load. Check your connection and reload.';return;}
+  paintTexture(state);initScene();buildBaseLabels();ready=true;
+  go(state.lesson,true);
+  const v=viewFor(LESSONS[state.lesson].view[0],LESSONS[state.lesson].view[1],LESSONS[state.lesson].view[2]*1.5,.6);camera.position.copy(v.pos);controls.target.copy(v.tgt);controls.update();homeView();
+  prog(1);document.getElementById('loader').hidden=true;requestAnimationFrame(loop);
+})();
+})();
+</script>
+</body>
+</html>
