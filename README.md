@@ -1,10 +1,12 @@
 # South Asia in Relief
 
+**▶ [Open the interactive module](https://shanem73.github.io/southasia-geography/)**
+
 An interactive 3D teaching module introducing the geography of South Asia: landforms, monsoon and rivers, languages and culture, religion, history, population and cities, and environmental issues, ending with a quiz.
 
 ## Use it
 
-It is a single self-contained page. Open `index.html` in a modern browser, or enable **GitHub Pages** (Settings → Pages → deploy from the `main` branch, root folder) to get a shareable link for students.
+It is a single self-contained page. Use the live link above, served by GitHub Pages from the `main` branch. You can also download `index.html` and open it in a modern browser.
 
 An internet connection is needed for the Three.js library (jsDelivr) and fonts (Google Fonts).
 
@@ -20,7 +22,7 @@ An internet connection is needed for the Three.js library (jsDelivr) and fonts (
 8. **Environment at Risk** – glaciers, water, air, floods, coasts, forests and wildlife
 9. **Quiz** – 12 questions linked to the map
 
-Each lesson has objectives, a short reading, map stops with a guided tour, key terms and a discussion prompt. Lessons can be linked directly, e.g. `index.html#monsoon`.
+Each lesson has objectives, a short reading, map stops with a guided tour, key terms and a discussion prompt. Lessons can be linked directly, e.g. [Monsoon & Rivers](https://shanem73.github.io/southasia-geography/#monsoon) or [the quiz](https://shanem73.github.io/southasia-geography/#quiz).
 
 ## Notes
 
